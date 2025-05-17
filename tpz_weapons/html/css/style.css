@@ -1,0 +1,78 @@
+@import url('https://fonts.cdnfonts.com/css/chinese-rocks');
+
+body {
+	width: 100%;
+	height: 100vh;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+
+  display: none;
+  
+    text-align: center;
+	justify-content: center;
+	align-items: center;
+
+  margin-left: 32.5%;
+  margin-top: -26%;
+
+}
+
+#weapons{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+
+  overflow: hidden;
+  width: 100%;
+  height: 100vh;
+  
+  justify-content: center;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently */
+}
+
+/* General */
+
+#main-account-dollars {
+  position: absolute;
+  display: inline-block;
+  
+	font-family: 'Chinese Rocks Rg', sans-serif;
+  color: rgb(252, 252, 252);
+	font-size: 2vw;
+
+	width: 10%;
+  margin-top:  29%;
+  margin-left: 48%;
+	text-align: right;
+
+  letter-spacing: 0.2px;
+
+}
+
+#main-account-cents {
+  position: absolute;
+  display: inline-block;
+  
+	font-family: 'Chinese Rocks Rg', sans-serif;
+  color: rgb(252, 252, 252);
+	font-size: 1.4vw;
+
+	width: 10%;
+  margin-top:  29%;
+  margin-left: 58.5%;
+	text-align: left;
+
+  letter-spacing: 0.2px;
+
+  text-decoration: underline;
+
+  opacity: 0.95;
+}
