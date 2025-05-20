@@ -18,4 +18,4 @@
 
 - The script does not provide any weapon customizations.
 
-- The script provides durability systems when shooting, when using a torch, lantern, etc.  
+- The script provides durability systems when shooting, when using a torch, lantern, etc -- (tpz_inventory) support. 
