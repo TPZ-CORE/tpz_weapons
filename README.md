@@ -14,6 +14,8 @@
 
 ## Information
 
+- The script provides as default weapon stores: VALENTINE, RHODES, SAINT DENIS & ANNESBURG locations. 
+
 - The script does not provide any weapon customizations.
 
 - The script provides durability systems when shooting, when using a torch, lantern, etc.  
