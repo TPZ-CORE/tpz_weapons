@@ -289,10 +289,3 @@ function Text(x, y, scale, text, colour, align, force, w)
     SetTextDropshadow(3, 0, 0, 0, 255)
     DisplayText(str, x, y)
 end
-
--- @GetTableLength returns the length of a table.
-function GetTableLength(T)
-    local count = 0
-    for _ in pairs(T) do count = count + 1 end
-    return count
-end
