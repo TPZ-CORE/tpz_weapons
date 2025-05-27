@@ -613,7 +613,7 @@ Citizen.CreateThread(function ()
         local retval, weaponHash = GetCurrentPedWeapon(PlayerPedId(), true, 0, true) 
         local randomChance       = math.random(1, 100)
   
-        if joaat(UsedWeapon.hash) == weaponHash then
+        if UsedWeapon.hash ~= nil and joaat(UsedWeapon.hash) == weaponHash then
   
           local SharedWeapons = TPZInv.getSharedWeapons()
   
