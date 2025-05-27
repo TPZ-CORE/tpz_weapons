@@ -610,38 +610,41 @@ Citizen.CreateThread(function ()
           RefreshCurrentWeapons()
         end
   
-        local retval, weaponHash = GetCurrentPedWeapon(PlayerPedId(), true, 0, true) 
-        local randomChance       = math.random(1, 100)
+        if UsedWeapon.hash ~= nil then
+          local retval, weaponHash = GetCurrentPedWeapon(PlayerPedId(), true, 0, true) 
+          local randomChance       = math.random(1, 100)
   
-        if UsedWeapon.hash ~= nil and joaat(UsedWeapon.hash) == weaponHash then
+          if joaat(UsedWeapon.hash) == weaponHash then
   
-          local SharedWeapons = TPZInv.getSharedWeapons()
+            local SharedWeapons = TPZInv.getSharedWeapons()
   
-          if SharedWeapons.Weapons[UsedWeapon.hash].removeDurabilityValue ~= false then
+            if SharedWeapons.Weapons[UsedWeapon.hash].removeDurabilityValue ~= false then
   
-            local WeaponData = SharedWeapons.Weapons[UsedWeapon.hash]
-            local removeValue = WeaponData.removeDurabilityValue[1]
+              local WeaponData = SharedWeapons.Weapons[UsedWeapon.hash]
+              local removeValue = WeaponData.removeDurabilityValue[1]
   
-            if WeaponData.removeDurabilityValue[2] then 
-              local randomValue = math.random(WeaponData.removeDurabilityValue[1], WeaponData.removeDurabilityValue[2])
-              removeValue = randomValue
-            end
+              if WeaponData.removeDurabilityValue[2] then 
+                local randomValue = math.random(WeaponData.removeDurabilityValue[1], WeaponData.removeDurabilityValue[2])
+                removeValue = randomValue
+              end
   
-            if removeValue ~= 0 and randomChance <= WeaponData.removeDurabilityChance then
-              UsedWeapon.durability = UsedWeapon.durability - removeValue
+              if removeValue ~= 0 and randomChance <= WeaponData.removeDurabilityChance then
+                UsedWeapon.durability = UsedWeapon.durability - removeValue
     
-              if UsedWeapon.durability <= 0 then
-                UsedWeapon.durability = 0
+                if UsedWeapon.durability <= 0 then
+                  UsedWeapon.durability = 0
   
-                TriggerServerEvent("tpz_inventory:setWeaponMetadata", UsedWeapon.weaponId, "SET_DURABILITY", 0)
+                  TriggerServerEvent("tpz_inventory:setWeaponMetadata", UsedWeapon.weaponId, "SET_DURABILITY", 0)
   
-                SaveUsedWeaponData()
+                  SaveUsedWeaponData()
   
-                UsedWeapon = { weaponId = nil, weaponObject = nil, hash = nil, ammoType = nil, ammo = 0, name = nil, durability = 0, metadata = {} }
-                RefreshCurrentWeapons()
+                  UsedWeapon = { weaponId = nil, weaponObject = nil, hash = nil, ammoType = nil, ammo = 0, name = nil, durability = 0, metadata = {} }
+                  RefreshCurrentWeapons()
   
-              else
-                TriggerServerEvent("tpz_inventory:setWeaponMetadata", UsedWeapon.weaponId, "SET_DURABILITY", UsedWeapon.durability)
+                else
+                  TriggerServerEvent("tpz_inventory:setWeaponMetadata", UsedWeapon.weaponId, "SET_DURABILITY", UsedWeapon.durability)
+                end
+  
               end
   
             end
@@ -649,7 +652,7 @@ Citizen.CreateThread(function ()
           end
   
         end
-  
+
       end
   
     else
