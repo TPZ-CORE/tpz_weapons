@@ -207,12 +207,12 @@ AddEventHandler("tpz_weapons:loadItemModelToTable", function(locationIndex, data
 		tokenPrice      = 0,
 		modifiedPriceVisible = data.modifiedPriceVisible,
 		purchaseModifiedPrice = data.purchaseModifiedPrice,
-		isWeapon = StartsWith(data.HashName, 'WEAPON_'),
+		isWeapon = TPZ.StartsWith(data.HashName, 'WEAPON_'),
 	} )
 
 	local objectCoords = StoreData.ItemObjectPosition
 
-	if StartsWith(data.HashName, 'WEAPON_') then
+	if TPZ.StartsWith(data.HashName, 'WEAPON_') then
 
 		Citizen.InvokeNative(0x72D4CB5DB927009C, GetHashKey(data.HashName), 1, true)
 
@@ -452,7 +452,7 @@ Citizen.CreateThread(function()
 									PlayerData.Store = {
 										Category = 'WEAPONS', 
 										CurrentIndex = 1, 
-										MaxIndex = GetTableLength(Config.Types[storeConfig.StoreProductsType]['WEAPONS'].Items)
+										MaxIndex = TPZ.GetTableLength(Config.Types[storeConfig.StoreProductsType]['WEAPONS'].Items)
 									}
 
 									DisplayPlayerAccountInformation()
@@ -467,21 +467,21 @@ Citizen.CreateThread(function()
 									if PlayerData.Store.Category == 'WEAPONS' then
 										newCategory = 'AMMUNITION'
 
-										if GetTableLength(Config.Types[storeConfig.StoreProductsType]['AMMUNITION'].Items) <= 0 then
+										if TPZ.GetTableLength(Config.Types[storeConfig.StoreProductsType]['AMMUNITION'].Items) <= 0 then
 											newCategory = 'MISC'
 										end
 
 									elseif PlayerData.Store.Category == 'AMMUNITION' then
 										newCategory = 'MISC'
 
-										if GetTableLength(Config.Types[storeConfig.StoreProductsType]['MISC'].Items) <= 0 then
+										if TPZ.GetTableLength(Config.Types[storeConfig.StoreProductsType]['MISC'].Items) <= 0 then
 											newCategory = 'WEAPONS'
 										end
 
 									elseif PlayerData.Store.Category == 'MISC' then
 										newCategory = 'WEAPONS'
 
-										if GetTableLength(Config.Types[storeConfig.StoreProductsType]['WEAPONS'].Items) <= 0 then
+										if TPZ.GetTableLength(Config.Types[storeConfig.StoreProductsType]['WEAPONS'].Items) <= 0 then
 											newCategory = 'AMMUNITION'
 										end
 
@@ -492,7 +492,7 @@ Citizen.CreateThread(function()
 									PlayerData.Store = {
 										Category = newCategory, 
 										CurrentIndex = 1, 
-										MaxIndex = GetTableLength(Config.Types[storeConfig.StoreProductsType][newCategory].Items) 
+										MaxIndex = TPZ.GetTableLength(Config.Types[storeConfig.StoreProductsType][newCategory].Items) 
 									}
 
 
@@ -515,7 +515,7 @@ Citizen.CreateThread(function()
 								if prompt.type == 'BUY' then
 
 									local ItemData = Config.Types[storeConfig.StoreProductsType][PlayerData.Store.Category].Items[PlayerData.Store.CurrentIndex]
-									local IsWeapon = StartsWith(ItemData.Item, 'WEAPON_')
+									local IsWeapon = TPZ.StartsWith(ItemData.Item, 'WEAPON_')
 
 									if ItemData.RequestInputQuantity and not IsWeapon then
 

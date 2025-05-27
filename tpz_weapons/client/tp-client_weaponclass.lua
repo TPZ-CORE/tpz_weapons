@@ -1,3 +1,4 @@
+local TPZ = exports.tpz_core:getCoreAPI()
 local TPZInv = exports.tpz_inventory:getInventoryAPI()
 
 local StoredWeaponsList = {
@@ -355,7 +356,7 @@ function RefreshCurrentWeapons()
       Citizen.InvokeNative(0x812CE61DEBCAB948, weaponObject, UsedWeapon.metadata.dirtLevel, true)
     end
 
-    if UsedWeapon.metadata.components and GetTableLength(UsedWeapon.metadata.components) > 0 then
+    if UsedWeapon.metadata.components and TPZ.GetTableLength(UsedWeapon.metadata.components) > 0 then
 
       RemoveAllWeaponComponents()
 
@@ -601,7 +602,7 @@ Citizen.CreateThread(function ()
           TriggerServerEvent("tpz_inventory:setWeaponMetadata", UsedWeapon.weaponId, "SET_AMMO", ammo - 1 )
         end
   
-        if StartsWith(UsedWeapon.hash, 'WEAPON_THROWN') or UsedWeapon.hash == 'WEAPON_MELEE_HATCHET' or UsedWeapon.hash == 'WEAPON_MELEE_CLEAVER' then
+        if TPZ.StartsWith(UsedWeapon.hash, 'WEAPON_THROWN') or UsedWeapon.hash == 'WEAPON_MELEE_HATCHET' or UsedWeapon.hash == 'WEAPON_MELEE_CLEAVER' then
           
           TriggerServerEvent('tpz_inventory:removeWeaponByWeaponId', UsedWeapon.hash, UsedWeapon.weaponId)
   

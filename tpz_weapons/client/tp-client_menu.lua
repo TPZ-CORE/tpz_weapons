@@ -127,7 +127,7 @@ OpenWeaponComponentsByComponent = function (locationIndex, weaponData, weaponObj
             desc = "",
             type = "slider",
             min = minimumIndex, 
-            max = GetTableLength(model_specific_components[weaponData.hashName][component]),
+            max = TPZ.GetTableLength(model_specific_components[weaponData.hashName][component]),
             shared = 0,
 
             name = component,
@@ -137,13 +137,13 @@ OpenWeaponComponentsByComponent = function (locationIndex, weaponData, weaponObj
 
     for index, shared_component in pairs(shared_components[weaponType]) do
 
-        if StartsWith(index, component) then
+        if TPZ.StartsWith(index, component) then
 
             if WeaponComponents[index] == nil then
                 WeaponComponents[index] = { name = nil, index = 0 }
             end
 
-            local args  = Split(index, '_')
+            local args  = TPZ.Split(index, '_')
             local label = index:gsub(args[1], "")
 
             if args[2] == nil then
@@ -156,7 +156,7 @@ OpenWeaponComponentsByComponent = function (locationIndex, weaponData, weaponObj
                 desc = "",
                 type = "slider",
                 min = 0, 
-                max = GetTableLength(shared_components[weaponType][index]),
+                max = TPZ.GetTableLength(shared_components[weaponType][index]),
                 shared = 1,
 
                 name = index
@@ -301,7 +301,7 @@ OpenWeaponComponentsByWeapon = function(locationIndex, weaponData, weaponObject)
 
     local tempComponentList = {}
 
-    if GetTableLength(foundComponents) > 0 then
+    if TPZ.GetTableLength(foundComponents) > 0 then
     
         for index, val in pairs (foundComponents) do 
 
@@ -315,11 +315,11 @@ OpenWeaponComponentsByWeapon = function(locationIndex, weaponData, weaponObject)
     
     end
 
-    if GetTableLength(foundSharedComponents) > 0 then
+    if TPZ.GetTableLength(foundSharedComponents) > 0 then
 
         for index, val in pairs (foundSharedComponents) do 
 
-            local args = Split(index, '_')
+            local args = TPZ.Split(index, '_')
             local componentType = args[1]
 
             if Locales['MENU_CUSTOMIZATION_' .. componentType] and tempComponentList[componentType] == nil then
@@ -396,7 +396,7 @@ function OpenWeaponCustomization(locationIndex)
 
         local elements = {}
 
-        if GetTableLength(weaponsList) > 0 then
+        if TPZ.GetTableLength(weaponsList) > 0 then
 
             local count = 0
 
@@ -452,7 +452,7 @@ function OpenWeaponCustomization(locationIndex)
             
             --PlaceObjectOnGroundProperly(weaponObject, true)
             
-            if GetTableLength(data.current.metadata.components) > 0 then
+            if TPZ.GetTableLength(data.current.metadata.components) > 0 then
 
                 local weaponType = GetWeaponType(GetHashKey(data.current.hashName))
 

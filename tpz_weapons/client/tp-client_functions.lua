@@ -226,28 +226,6 @@ function SpawnNPC(index)
     end
 end
 
-
-function GetNearestPlayers(distance)
-	local closestDistance = distance
-	local playerPed = PlayerPedId()
-	local coords = GetEntityCoords(playerPed, true, true)
-	local closestPlayers = {}
-
-	for _, player in pairs(GetActivePlayers()) do
-		local target = GetPlayerPed(player)
-
-		if target ~= playerPed then
-			local targetCoords = GetEntityCoords(target, true, true)
-			local distance = #(targetCoords - coords)
-
-			if distance < closestDistance then
-				table.insert(closestPlayers, player)
-			end
-		end
-	end
-	return closestPlayers
-end
-
 function RequestAnim(dict)
 
     if not DoesAnimDictExist(dict) then
@@ -310,26 +288,6 @@ function Text(x, y, scale, text, colour, align, force, w)
     end
     SetTextDropshadow(3, 0, 0, 0, 255)
     DisplayText(str, x, y)
-end
-
-function Split(inputstr, sep)
-
-    if sep == nil then
-        sep = "%s"
-    end
-  
-    local t = {}
-  
-    for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
-            table.insert(t, str)
-    end
-  
-    return t
-  
-end
-
-function StartsWith(String,Start)
-    return string.sub(String,1,string.len(Start))==Start
 end
 
 -- @GetTableLength returns the length of a table.
