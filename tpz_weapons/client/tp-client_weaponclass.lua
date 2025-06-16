@@ -188,7 +188,7 @@ function ReloadWeaponsOnCharacterSelect()
     Wait(500)
   end
 
-  local data = exports.tpz_core:getCoreAPI().getPlayerClientData()
+  local data = exports.tpz_core:getCoreAPI().GetPlayerClientData()
 
   -- If player is in session we return the rest of the code.
   if data == nil then
