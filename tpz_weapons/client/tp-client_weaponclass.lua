@@ -604,7 +604,7 @@ Citizen.CreateThread(function ()
   
         if TPZ.StartsWith(UsedWeapon.hash, 'WEAPON_THROWN') or UsedWeapon.hash == 'WEAPON_MELEE_HATCHET' or UsedWeapon.hash == 'WEAPON_MELEE_CLEAVER' then
           
-          TriggerServerEvent('tpz_inventory:removeWeaponByWeaponId', UsedWeapon.hash, UsedWeapon.weaponId)
+          TriggerServerEvent('tpz_inventory:removeWeaponByWeaponId', UsedWeapon.weaponId)
   
           UsedWeapon = { weaponId = nil, weaponObject = nil, hash = nil, ammoType = nil, ammo = 0, name = nil, durability = 0, metadata = {} }
           RefreshCurrentWeapons()
@@ -1130,4 +1130,5 @@ function apply_weapon_component(weapon_component_hash)
     Citizen.InvokeNative(0xD3A7B003ED343FD9, playerPed, joaat(weapon_component_hash), true, true, true) -- ApplyShopItemToPed( -- RELOADING THE LIVE MODEL
   end
 end
+
 
