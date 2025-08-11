@@ -515,7 +515,6 @@ Citizen.CreateThread(function()
 end)
 
 -- We disable the player firing if the left ammo is < 1 because 1 arrow and 1 bullet will always be added to the weapon.
-/*
 Citizen.CreateThread(function ()
 
   while true do
@@ -526,8 +525,8 @@ Citizen.CreateThread(function ()
     if UsedWeapon.weaponId and UsedWeapon.ammoType ~= nil and PlayerData.HasLoadedContents then
   
       local ammo = GetAmmoInPedWeapon(PlayerPedId(), joaat(UsedWeapon.hash))
-  
-      if ammo == 1 then
+
+      if (ammo == 1) and (UsedWeapon.hash == 'WEAPON_BOW' or UsedWeapon.hash == 'WEAPON_BOW_IMPROVED') then
         DisablePlayerFiring(PlayerPedId(), true)
       end
     
@@ -538,7 +537,6 @@ Citizen.CreateThread(function ()
   end
 
 end)
-*/
 
 -- Reloading weapons who have ammo support, such as pistols, rifles, shotguns, revolvers, etc.
 Citizen.CreateThread(function ()
