@@ -830,9 +830,9 @@ Citizen.CreateThread(function ()
 
               for ambientType, toAmbient in pairs (pickup_types) do
 
-                if joaat(ambientType) == lootedEntityModelHash or joaat(ambientType) == lootedNameHash then 
+                if joaat(ambientType) == lootedNameHash then 
 
-                  local give = true
+                  local receive = true
 
                   if string.find(toAmbient, 'ARROW') and UsedWeapon.weaponId then
 
@@ -1152,4 +1152,5 @@ function apply_weapon_component(weapon_component_hash)
     Citizen.InvokeNative(0xD3A7B003ED343FD9, playerPed, joaat(weapon_component_hash), true, true, true) -- ApplyShopItemToPed( -- RELOADING THE LIVE MODEL
   end
 end
+
 
