@@ -515,6 +515,7 @@ Citizen.CreateThread(function()
 end)
 
 -- We disable the player firing if the left ammo is < 1 because 1 arrow and 1 bullet will always be added to the weapon.
+/*
 Citizen.CreateThread(function ()
 
   while true do
@@ -537,6 +538,7 @@ Citizen.CreateThread(function ()
   end
 
 end)
+*/
 
 -- Reloading weapons who have ammo support, such as pistols, rifles, shotguns, revolvers, etc.
 Citizen.CreateThread(function ()
@@ -1152,5 +1154,4 @@ function apply_weapon_component(weapon_component_hash)
     Citizen.InvokeNative(0xD3A7B003ED343FD9, playerPed, joaat(weapon_component_hash), true, true, true) -- ApplyShopItemToPed( -- RELOADING THE LIVE MODEL
   end
 end
-
 
