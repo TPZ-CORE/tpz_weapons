@@ -766,6 +766,89 @@ Citizen.CreateThread(function ()
 
 end)
 
+-- The specified task is for arrows and throwable pickups.
+Citizen.CreateThread(function ()
+
+  local pickup_types = {
+    ["PICKUP_AMMO_ARROW"]                      = 'AMMO_ARROW',
+    ["PICKUP_AMMO_SINGLE_ARROW"]               = 'AMMO_ARROW',
+    ["PICKUP_AMMO_SINGLE_ARROW_DYNAMITE"]      = 'AMMO_ARROW_DYNAMITE',
+    ["PICKUP_AMMO_SINGLE_ARROW_FIRE"]          = 'AMMO_ARROW_FIRE',
+    ["PICKUP_AMMO_SINGLE_ARROW_IMPROVED"]      = 'AMMO_ARROW_IMPROVED',
+    ["PICKUP_AMMO_SINGLE_ARROW_POISON"]        = 'AMMO_ARROW_POISON',
+    ["PICKUP_AMMO_SINGLE_ARROW_SMALL_GAME"]    = 'AMMO_ARROW_SMALL_GAME',
+    ["PICKUP_WEAPON_SINGLE_ARROW"]             = 'AMMO_ARROW',
+    ["PICKUP_WEAPON_SINGLE_ARROW_FIRE"]        = 'AMMO_ARROW_FIRE',
+    ["PICKUP_WEAPON_THROWN_THROWING_KNIVES"]   = 'WEAPON_THROWN_THROWING_KNIVES',
+    ["PICKUP_WEAPON_THROWN_TOMAHAWK"]          = 'WEAPON_THROWN_TOMAHAWK',
+    ['PICKUP_WEAPON_THROWN_TOMAHAWK_ANCIENT']  = 'WEAPON_THROWN_TOMAHAWK_ANCIENT',
+    ["PICKUP_WEAPON_THROWN_BOLAS"]             = 'WEAPON_THROWN_BOLAS',
+    ["PICKUP_WEAPON_MELEE_HATCHET"]            = 'WEAPON_MELEE_HATCHET',
+    ["PICKUP_WEAPON_MELEE_HATCHET_DOUBLE_BIT"] = 'WEAPON_MELEE_HATCHET_DOUBLE_BIT',
+    ["PICKUP_WEAPON_MELEE_HATCHET_HEWING"]     = 'WEAPON_MELEE_HATCHET_HEWING',
+    ["PICKUP_WEAPON_MELEE_HATCHET_HUNTER"]     = 'WEAPON_MELEE_HATCHET_HUNTER',
+    ["PICKUP_WEAPON_MELEE_HATCHET_VIKING"]     = 'WEAPON_MELEE_HATCHET_VIKING',
+    ["PICKUP_WEAPON_MELEE_CLEAVER"]            = 'PICKUP_WEAPON_MELEE_CLEAVER',
+    ["PICKUP_WEAPON_MELEE_CLEAVER_MP"]         = 'PICKUP_WEAPON_MELEE_CLEAVER',
+  }
+
+  while true do
+    
+    Citizen.Wait(0)
+
+    local size = GetNumberOfEvents(0)
+
+    if size > 0 then
+
+      for index = 0, size - 1 do
+        local event = GetEventAtIndex(0, index)
+
+        if event == joaat("EVENT_PLAYER_COLLECTED_AMBIENT_PICKUP") then 
+
+          local eventDataSize = 8
+
+          local eventDataStruct = DataView.ArrayBuffer(8 * eventDataSize) -- buffer must be 8*eventDataSize or bigger
+
+          eventDataStruct:SetInt32(8 * 0, 0)		 	-- 8*0 offset for 0 element of eventData
+          eventDataStruct:SetInt32(8 * 1, 0)		 	-- 8*0 offset for 0 element of eventData
+          eventDataStruct:SetInt32(8 * 2, 0)		 	-- 8*0 offset for 0 element of eventData
+          eventDataStruct:SetInt32(8 * 4, 0)		 	-- 8*0 offset for 0 element of eventData
+          eventDataStruct:SetInt32(8 * 6, 0)		 	-- 8*0 offset for 0 element of eventData
+
+          local is_data_exists = Citizen.InvokeNative(0x57EC5FA4D4D6AFCA,0, index,eventDataStruct:Buffer(),eventDataSize)	-- GET_EVENT_DATA
+
+          if is_data_exists then
+
+            local lootedNameHash         = eventDataStruct:GetInt32(8 * 0)
+            local lootedEntityId         = eventDataStruct:GetInt32(8 * 1)
+            local looterId               = eventDataStruct:GetInt32(8 * 2)
+            local lootedEntityModelHash  = eventDataStruct:GetInt32(8 * 3)
+            -- Ensure the player who enacted on the event is the one who must get the rewards
+
+            -- EVENT_PLAYER_COLLECTED_AMBIENT_PICKUP is using PlayerId() instead of PlayerPedId()
+            if PlayerId() == looterId then 
+
+              for ambientType, toAmbient in pairs (pickup_types) do
+
+                if joaat(ambientType) == lootedEntityModelHash or joaat(ambientType) == lootedNameHash then 
+                  TriggerServerEvent("tpz_inventory:onThrowableWeaponAmmoAmbientPickup", toAmbient)
+                end
+
+              end
+
+            end
+
+          end
+
+        end
+
+      end
+
+    end
+  end
+
+end)
+
 -----------------------------------------------------------
 --[[ Weapon Utility Functions  ]]--
 -----------------------------------------------------------
@@ -1047,3 +1130,4 @@ function apply_weapon_component(weapon_component_hash)
     Citizen.InvokeNative(0xD3A7B003ED343FD9, playerPed, joaat(weapon_component_hash), true, true, true) -- ApplyShopItemToPed( -- RELOADING THE LIVE MODEL
   end
 end
+
