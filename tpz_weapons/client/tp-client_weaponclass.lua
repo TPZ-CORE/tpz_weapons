@@ -831,7 +831,29 @@ Citizen.CreateThread(function ()
               for ambientType, toAmbient in pairs (pickup_types) do
 
                 if joaat(ambientType) == lootedEntityModelHash or joaat(ambientType) == lootedNameHash then 
-                  TriggerServerEvent("tpz_inventory:onThrowableWeaponAmmoAmbientPickup", toAmbient)
+
+                  local give = true
+
+                  if string.find(toAmbient, 'ARROW') then
+
+                    local ammo = GetAmmoInPedWeapon(PlayerPedId(), joaat(UsedWeapon.hash))
+
+                    if TPZInv.getSharedWeapons().Ammo[toAmbient] then 
+
+                      if ammo < TPZInv.getSharedWeapons().Ammo[toAmbient].maxAmmo then
+                        receive = false
+                      end
+
+                    else
+                      receive = false
+                    end
+                    
+                  end
+
+                  if receive then
+                    TriggerServerEvent("tpz_inventory:onThrowableWeaponAmmoAmbientPickup", toAmbient)
+                  end
+
                 end
 
               end
@@ -1130,5 +1152,4 @@ function apply_weapon_component(weapon_component_hash)
     Citizen.InvokeNative(0xD3A7B003ED343FD9, playerPed, joaat(weapon_component_hash), true, true, true) -- ApplyShopItemToPed( -- RELOADING THE LIVE MODEL
   end
 end
-
 
