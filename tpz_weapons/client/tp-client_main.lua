@@ -67,7 +67,7 @@ function CloseStoreProperly()
 	for _, player in ipairs(GetActivePlayers()) do -- INVISIBILITY.
 		local ped = GetPlayerPed(player)
 		if DoesEntityExist(ped) then
-			SetEntityVisible(ped, false, false) -- Make them invisible
+			SetEntityVisible(ped, true, true) -- Make them invisible
 		end
 	end
 
