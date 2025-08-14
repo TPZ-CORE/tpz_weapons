@@ -64,6 +64,13 @@ function CloseStoreProperly()
 
 	TaskStandStill(PlayerPedId(), 1)
 
+	for _, player in ipairs(GetActivePlayers()) do -- INVISIBILITY.
+		local ped = GetPlayerPed(player)
+		if DoesEntityExist(ped) then
+			SetEntityVisible(ped, false, false) -- Make them invisible
+		end
+	end
+
 	DoScreenFadeIn(2000)
 
 end
