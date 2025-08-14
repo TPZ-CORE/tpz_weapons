@@ -121,6 +121,15 @@ AddEventHandler('onResourceStop', function(resourceName)
 	
 		CloseUI()
 		TaskStandStill(PlayerPedId(), 1)
+
+		for _, player in ipairs(GetActivePlayers()) do -- INVISIBILITY.
+			local ped = GetPlayerPed(player)
+			if DoesEntityExist(ped) then
+				SetEntityVisible(ped, true, true) -- Make them invisible
+			end
+		end
+
+		
 	end
 
 end)
@@ -302,6 +311,25 @@ end)
 --[[ Threads  ]]--
 -----------------------------------------------------------
 
+Citizen.CreateThread(function()
+	while true do
+		Wait(0)
+
+		if PlayerData.IsBusy then
+
+			for _, player in ipairs(GetActivePlayers()) do -- INVISIBILITY.
+				local ped = GetPlayerPed(player)
+				if DoesEntityExist(ped) then
+					SetEntityVisible(ped, false, false) -- Make them invisible
+				end
+			end
+
+		else
+			Wait(1000)
+		end
+
+	end
+end)
 
 Citizen.CreateThread(function()
     RegisterActionPrompts()
