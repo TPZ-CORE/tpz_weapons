@@ -298,9 +298,6 @@ AddEventHandler("tpz_weapons:loadItemModelToTable", function(locationIndex, data
 
 end)
 
-------------------- REMOVE AFTER FINISH
-DoScreenFadeIn(2000)
-
 -----------------------------------------------------------
 --[[ Threads  ]]--
 -----------------------------------------------------------
