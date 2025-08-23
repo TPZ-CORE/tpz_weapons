@@ -269,7 +269,9 @@ AddEventHandler("tpz_weapons:loadItemModelToTable", function(locationIndex, data
 		if data.Rotation.Enabled then
 			SetEntityRotation(object,data.Rotation.Pitch, data.Rotation.Roll, data.Rotation.Yaw, 2, true)
 		end
-
+			
+		SetEntityCoordsNoOffset(object,  objectCoords.x, objectCoords.y, objectCoords.z)
+			
 		PlayerData.Item.ObjectEntity      = object
 
 		PlayerData.Item.ObjectEntityModel = data.HashName
@@ -743,4 +745,5 @@ Citizen.CreateThread(function()
 	end
 
 end)]]--
+
 
