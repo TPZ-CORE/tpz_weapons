@@ -5,12 +5,12 @@ rdr3_warning 'I acknowledge that this is a prerelease build of RedM, and I am aw
 author 'Nosmakos'
 description 'TPZ-CORE Weapons'
 
-version '1.0.2'
+version '1.0.0'
 
 ui_page 'html/index.html'
 
 shared_scripts { 'config.lua', 'config_store_products.lua', 'locales.lua' }
-client_scripts { '@tpz_core/client/tp-client_dataview.lua', 'client/*.lua' }
+client_scripts { '@tpz_core/client/modules/dataview/client.lua', 'client/*.lua' }
 server_scripts { 'server/*.lua' }
 
 files { 'html/**/*' }
@@ -22,4 +22,3 @@ dependencies {
 }
 
 lua54 'yes'
-
