@@ -249,11 +249,17 @@ EquipWeapon = function(itemId, hash, ammoType, ammo, label, durability, metadata
   if isWeaponThrowable then
     ammo = 1
   end
+
+  local weaponGroup = GetWeapontypeGroup(joaat( string.upper(hash) ))
+
+  if UsedWeapon.hash == "WEAPON_RIFLE_VARMINT" then 
+    weaponGroup = tostring(weaponGroup) .. '1'
+  end
   
   if ammoType == nil then
   
     local SharedWeapons = TPZInv.getSharedWeapons()
-    local weaponGroup   = GetWeapontypeGroup(joaat( string.upper(hash) ))
+
     local getAmmoType   = SharedWeapons.AmmoTypes[tostring(weaponGroup)]
   
     if getAmmoType then
@@ -270,9 +276,10 @@ EquipWeapon = function(itemId, hash, ammoType, ammo, label, durability, metadata
   UsedWeapon.name       = label
   UsedWeapon.durability = durability
   UsedWeapon.metadata   = metadata
-  
+
   RefreshCurrentWeapons()
 
+  TriggerEvent("tpz_weapons:client:run_weapon_tasks")
 end
 
 function RefreshCurrentWeapons()
@@ -554,10 +561,15 @@ Citizen.CreateThread(function ()
         local SharedWeapons = TPZInv.getSharedWeapons()
   
         local weaponGroup = GetWeapontypeGroup(UsedWeapon.hash)
+        
+        if UsedWeapon.hash == "WEAPON_RIFLE_VARMINT" then 
+          weaponGroup = tostring(weaponGroup) .. '1'
+        end
+
         local getAmmoType = SharedWeapons.AmmoTypes[tostring(weaponGroup)]
-  
+
         if getAmmoType then
-  
+
           local ammoData = SharedWeapons.Ammo[UsedWeapon.ammoType]
           local ammo     = GetAmmoInPedWeapon(PlayerPedId(), joaat(UsedWeapon.hash))
   
@@ -1152,5 +1164,6 @@ function apply_weapon_component(weapon_component_hash)
     Citizen.InvokeNative(0xD3A7B003ED343FD9, playerPed, joaat(weapon_component_hash), true, true, true) -- ApplyShopItemToPed( -- RELOADING THE LIVE MODEL
   end
 end
+
 
 
