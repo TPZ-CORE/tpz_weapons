@@ -102,6 +102,12 @@ Config.Stores = {
 			Scenario = { Enabled = true, HashName = "WORLD_HUMAN_SHOPKEEPER_MALE_B" },
 		},
 
+		-- Set @Enabled to false if you dont want a job to receive money from the specified store on the society ledger.
+		SocietyMoney = {
+			Enabled  = false,
+			Job      = "",
+		},
+
 		-- Camera location for displaying the @ItemObjectPosition
 		MainCamera = { x = -280.794, y = 780.7434, z = 120.72, rotx = -45.0, roty = 0.0, rotz = 160.0, fov = 36.0},
 
@@ -146,6 +152,12 @@ Config.Stores = {
 			Scenario = { Enabled = true, HashName = "WORLD_HUMAN_SHOPKEEPER_MALE_B" },
 		},
 
+		-- Set @Enabled to false if you dont want a job to receive money from the specified store on the society ledger.
+		SocietyMoney = {
+			Enabled  = false,
+			Job      = "",
+		},
+		
 		-- Camera location for displaying the @ItemObjectPosition
 		MainCamera = { x = 1322.83, y = -1321.663, z = 78.820, rotx = -55.0, roty = 0.0, rotz = 130.0, fov = 26.0},
 
@@ -190,6 +202,12 @@ Config.Stores = {
 			Scenario = { Enabled = true, HashName = "WORLD_HUMAN_SHOPKEEPER_MALE_B" },
 		},
 
+		-- Set @Enabled to false if you dont want a job to receive money from the specified store on the society ledger.
+		SocietyMoney = {
+			Enabled  = false,
+			Job      = "",
+		},
+		
 		-- Camera location for displaying the @ItemObjectPosition
 		MainCamera = { x = 2716.498, y = -1285.30, z = 50.830, rotx = -55.0, roty = 5.0, rotz = 180.0, fov = 26.0},
 
@@ -234,6 +252,12 @@ Config.Stores = {
 			Scenario = { Enabled = true, HashName = "WORLD_HUMAN_SHOPKEEPER_MALE_B" },
 		},
 
+		-- Set @Enabled to false if you dont want a job to receive money from the specified store on the society ledger.
+		SocietyMoney = {
+			Enabled  = false,
+			Job      = "",
+		},
+		
 		-- Camera location for displaying the @ItemObjectPosition
 		MainCamera = { x = 2946.813, y = 1320.663, z = 45.820, rotx = -45.0, roty = 0.0, rotz = 220.0, fov = 46.0},
 
@@ -267,5 +291,6 @@ function SendNotification(source, message, type)
     else
         TriggerClientEvent('tpz_core:sendBottomTipNotification', source, message, duration)
     end
+
 
 end
