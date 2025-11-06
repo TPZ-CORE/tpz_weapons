@@ -72,7 +72,13 @@ AddEventHandler("tpz_weapons:server:buySelectedItem", function(locationIndex, ca
 
     local displayNotification = string.format(Locales['SUCCESSFULLY_BOUGHT_WEAPON'], label, totalCost)
     SendNotification(_source, displayNotification, 'success')
+      
+    if Config.Stores[locationIndex].SocietyMoney.Enabled then 
+      exports.tpz_society:getAPI().updateSocietyLedgerAccount(Config.Stores[locationIndex].SocietyMoney.Job, 'ADD', totalCost)
+    end
 
+    xPlayer.removeAccount(0, totalCost)
+      
     -- Updating UI (Display Account)
     currentMoney = xPlayer.getAccount(0)
     TriggerClientEvent("tpz_weapons:client:updatePlayerAccount", _source, { currentMoney })
@@ -90,7 +96,13 @@ AddEventHandler("tpz_weapons:server:buySelectedItem", function(locationIndex, ca
   
     local displayNotification = string.format(Locales['SUCCESSFULLY_BOUGHT_ITEM'], quantity, label, totalCost)
     SendNotification(_source, displayNotification, 'success')
+      
+    if Config.Stores[locationIndex].SocietyMoney.Enabled then 
+      exports.tpz_society:getAPI().updateSocietyLedgerAccount(Config.Stores[locationIndex].SocietyMoney.Job, 'ADD', totalCost)
+    end
 
+    xPlayer.removeAccount(0, totalCost)
+      
     -- Updating UI (Display Account)
     currentMoney = xPlayer.getAccount(0)
     TriggerClientEvent("tpz_weapons:client:updatePlayerAccount", _source, { currentMoney })
@@ -98,3 +110,4 @@ AddEventHandler("tpz_weapons:server:buySelectedItem", function(locationIndex, ca
   end
 
 end) 
+
