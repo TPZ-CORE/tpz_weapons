@@ -316,29 +316,24 @@ AddEventHandler("tpz_weapons:loadItemModelToTable", function(locationIndex, data
 
 end)
 
------------------------------------------------------------
---[[ Threads  ]]--
------------------------------------------------------------
+AddEventHandler("tpz_weapons:client:store:tasks", function()
 
-Citizen.CreateThread(function()
-	while true do
+	while PlayerData.IsBusy do
 		Wait(0)
 
-		if PlayerData.IsBusy then
-
-			for _, player in ipairs(GetActivePlayers()) do -- INVISIBILITY.
-				local ped = GetPlayerPed(player)
-				if DoesEntityExist(ped) then
-					SetEntityVisible(ped, false, false) -- Make them invisible
-				end
+		for _, player in ipairs(GetActivePlayers()) do -- INVISIBILITY.
+			local ped = GetPlayerPed(player)
+			if DoesEntityExist(ped) then
+				SetEntityVisible(ped, false, false) -- Make them invisible
 			end
-
-		else
-			Wait(1000)
 		end
 
 	end
 end)
+
+-----------------------------------------------------------
+--[[ Threads  ]]--
+-----------------------------------------------------------
 
 Citizen.CreateThread(function()
     RegisterActionPrompts()
@@ -447,6 +442,8 @@ Citizen.CreateThread(function()
 									end
 										
 									PlayerData.IsBusy = true
+										
+									TriggerEvent("tpz_weapons:client:store:tasks")
 										
 									TaskStandStill(player, -1)
 
@@ -746,6 +743,7 @@ Citizen.CreateThread(function()
 	end
 
 end)]]--
+
 
 
 
