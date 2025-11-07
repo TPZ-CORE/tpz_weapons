@@ -440,13 +440,14 @@ Citizen.CreateThread(function()
 							if PromptHasHoldModeCompleted(prompt.prompt) then
 
 								if prompt.type == 'OPEN_STORE' then
-									PlayerData.IsBusy = true
-
+	
 									while not IsScreenFadedOut() do
 										Wait(50)
 										DoScreenFadeOut(2000)
 									end
-								
+										
+									PlayerData.IsBusy = true
+										
 									TaskStandStill(player, -1)
 
 									ExecuteCommand("hud:hideall")
@@ -745,5 +746,6 @@ Citizen.CreateThread(function()
 	end
 
 end)]]--
+
 
 
