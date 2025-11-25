@@ -686,11 +686,11 @@ if TPZInv.getSharedWeapons().Options.UsingLanterns then
     while true do
       
       Wait(1000)
-  
+
       local PlayerData = TPZInv.getPlayerData()
 
-      if UsedWeapon.weaponId and UsedWeapon.ammoType == nil and UsedWeapon.ammo == 0 and PlayerData.HasLoadedContents then
-  
+      if UsedWeapon.weaponId and UsedWeapon.ammoType == nil and UsedWeapon.ammo <= 1 and PlayerData.HasLoadedContents then
+
         local retval, weaponHash = GetCurrentPedWeapon(PlayerPedId(), true, 0, true) 
   
         local isLantern = Citizen.InvokeNative(0x79407D33328286C6, weaponHash)
@@ -698,9 +698,9 @@ if TPZInv.getSharedWeapons().Options.UsingLanterns then
   
         if (isLantern or isTorch ) and joaat(UsedWeapon.hash) == weaponHash then
   
-          if SharedWeapons.Weapons[UsedWeapon.hash].removeDurabilityValue ~= false then
+          if TPZInv.getSharedWeapons().Weapons[UsedWeapon.hash].removeDurabilityValue ~= false then
   
-            local WeaponData = SharedWeapons.Weapons[UsedWeapon.hash]
+            local WeaponData = TPZInv.getSharedWeapons().Weapons[UsedWeapon.hash]
   
             CurrentLightDelay = CurrentLightDelay + 1
   
@@ -715,14 +715,14 @@ if TPZInv.getSharedWeapons().Options.UsingLanterns then
                 local randomValue = math.random(WeaponData.removeDurabilityValue[1], WeaponData.removeDurabilityValue[2])
                 removeValue = randomValue
               end
-    
+
               if removeValue ~= 0 then
     
                 UsedWeapon.durability = UsedWeapon.durability - removeValue
       
                 if UsedWeapon.durability <= 0 then
                   UsedWeapon.durability = 0
-                
+
                   TriggerServerEvent("tpz_inventory:setWeaponMetadata", UsedWeapon.weaponId, "SET_DURABILITY", 0)
   
                   UsedWeapon = { weaponId = nil, weaponObject = nil, hash = nil, ammoType = nil, ammo = 0, name = nil, durability = 0, metadata = {} }
@@ -1164,6 +1164,7 @@ function apply_weapon_component(weapon_component_hash)
     Citizen.InvokeNative(0xD3A7B003ED343FD9, playerPed, joaat(weapon_component_hash), true, true, true) -- ApplyShopItemToPed( -- RELOADING THE LIVE MODEL
   end
 end
+
 
 
 
