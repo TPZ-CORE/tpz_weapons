@@ -21,7 +21,12 @@ RegisterServerEvent("tpz_weapons:server:buySelectedItem")
 AddEventHandler("tpz_weapons:server:buySelectedItem", function(locationIndex, categoryIndex, selectedItemIndex, item, label, quantity)
   local _source    = source
   local xPlayer    = TPZ.GetPlayer(_source)
-   
+    
+  if xPlayer.hasLostConnection() then 
+    print(string.format('A player with the steam name as: %s and online id: %s, attempted to buy an item / weapon from weapons store while his connection is lost.', GetPlayerName(_source), _source))
+    return 
+  end
+
   local ItemData   = Config.Types[locationIndex][categoryIndex].Items[selectedItemIndex]
   local IsWeapon   = TPZ.StartsWith(item, 'WEAPON_')
 
@@ -110,4 +115,5 @@ AddEventHandler("tpz_weapons:server:buySelectedItem", function(locationIndex, ca
   end
 
 end) 
+
 
