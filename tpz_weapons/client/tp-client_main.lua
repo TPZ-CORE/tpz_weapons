@@ -63,14 +63,6 @@ function CloseStoreProperly()
 	PlayerData.Store.Category = 'NONE'
 
 	TaskStandStill(PlayerPedId(), 1)
-
-	for _, player in ipairs(GetActivePlayers()) do -- INVISIBILITY.
-		local ped = GetPlayerPed(player)
-		if DoesEntityExist(ped) then
-			SetEntityVisible(ped, true, true) -- Make them invisible
-		end
-	end
-
 	DoScreenFadeIn(2000)
 
 end
@@ -128,15 +120,6 @@ AddEventHandler('onResourceStop', function(resourceName)
 	
 		CloseUI()
 		TaskStandStill(PlayerPedId(), 1)
-
-		for _, player in ipairs(GetActivePlayers()) do -- INVISIBILITY.
-			local ped = GetPlayerPed(player)
-			if DoesEntityExist(ped) then
-				SetEntityVisible(ped, true, true) -- Make them invisible
-			end
-		end
-
-		
 	end
 
 end)
@@ -316,21 +299,6 @@ AddEventHandler("tpz_weapons:loadItemModelToTable", function(locationIndex, data
 
 end)
 
-AddEventHandler("tpz_weapons:client:store:tasks", function()
-
-	while PlayerData.IsBusy do
-		Wait(0)
-
-		for _, player in ipairs(GetActivePlayers()) do -- INVISIBILITY.
-			local ped = GetPlayerPed(player)
-			if DoesEntityExist(ped) then
-				SetEntityVisible(ped, false, false) -- Make them invisible
-			end
-		end
-
-	end
-end)
-
 -----------------------------------------------------------
 --[[ Threads  ]]--
 -----------------------------------------------------------
@@ -442,9 +410,7 @@ Citizen.CreateThread(function()
 									end
 										
 									PlayerData.IsBusy = true
-										
-									TriggerEvent("tpz_weapons:client:store:tasks")
-										
+
 									TaskStandStill(player, -1)
 
 									ExecuteCommand("hud:hideall")
@@ -743,6 +709,7 @@ Citizen.CreateThread(function()
 	end
 
 end)]]--
+
 
 
 
