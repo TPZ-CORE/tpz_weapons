@@ -1,3 +1,4 @@
+local TPZ = exports.tpz_core:getCoreAPI()
 local TPZInv = exports.tpz_inventory:getInventoryAPI()
 
 local CooldownPlayers = {}
@@ -8,7 +9,7 @@ local CooldownPlayers = {}
 
 Citizen.CreateThread(function () 
 
-	if Config.CartidgeBoxItems and #Config.CartidgeBoxItems > 0 then
+	if Config.CartidgeBoxItems ~= false and TPZ.GetTableLength(Config.CartidgeBoxItems) > 0 then
 
 		for item, v in pairs (Config.CartidgeBoxItems) do
 
