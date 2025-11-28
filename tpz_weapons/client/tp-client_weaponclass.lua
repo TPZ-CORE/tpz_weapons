@@ -521,6 +521,91 @@ Citizen.CreateThread(function()
     
 end)
 
+Citizen.CreateThread(function()
+
+  while true do
+    Wait(0)
+
+    local size = GetNumberOfEvents(0)
+    if size > 0 then
+      for index = 0, size - 1 do
+
+        local event = GetEventAtIndex(0, index)
+
+        if event == `EVENT_LOOT_COMPLETE` then
+
+          local eventDataSize = 3  -- for EVENT_LOOT_COMPLETE data size is 9
+          local eventDataStruct = DataView.ArrayBuffer(8 * eventDataSize) -- buffer must be 8*eventDataSize or bigger
+
+          eventDataStruct:SetInt32(8 * 0, 0) 	-- 8*0 offset for 0 element of eventData
+          eventDataStruct:SetInt32(8 * 1, 0)	  -- 8*0 offset for 0 element of eventData
+          eventDataStruct:SetInt32(8 * 2, 0)  -- 8*0 offset for 0 element of eventData
+
+          local is_data_exists = Citizen.InvokeNative(0x57EC5FA4D4D6AFCA,0, index,eventDataStruct:Buffer(),eventDataSize)	-- GET_EVENT_DATA
+
+          if is_data_exists then
+
+            local looterId       = eventDataStruct:GetInt32(8 * 0) 	-- 8*0 offset for 0 element of eventData
+            local lootedEntityId = eventDataStruct:GetInt32(8 * 1)	  -- 8*0 offset for 0 element of eventData
+            local isLootSuccess  = eventDataStruct:GetInt32(8 * 2)  -- 8*0 offset for 0 element of eventData
+
+            if PlayerPedId() == looterId and isLootSuccess == 1 then
+              
+              local model = GetEntityModel(lootedEntityId)
+
+              if model then 
+
+                local SharedWeapons = TPZInv.getSharedWeapons()
+  
+                if SharedWeapons.Weapons[UsedWeapon.hash].removeDurabilityValue ~= false then
+              
+                  local WeaponData   = SharedWeapons.Weapons[UsedWeapon.hash]
+    
+                  local randomChance = math.random(1, 100)
+                  local removeValue  = WeaponData.removeDurabilityValue[1]
+        
+                  if WeaponData.removeDurabilityValue[2] then 
+                    local randomValue = math.random(WeaponData.removeDurabilityValue[1], WeaponData.removeDurabilityValue[2])
+                    removeValue = randomValue
+                  end
+        
+                  if removeValue ~= 0 and randomChance <= WeaponData.removeDurabilityChance then
+                    UsedWeapon.durability = UsedWeapon.durability - removeValue
+          
+                    if UsedWeapon.durability <= 0 then
+                      UsedWeapon.durability = 0
+        
+                      TriggerServerEvent("tpz_inventory:setWeaponMetadata", UsedWeapon.weaponId, "SET_DURABILITY", 0)
+      
+                      SaveUsedWeaponData()
+      
+                      UsedWeapon = { weaponId = nil, weaponObject = nil, hash = nil, ammoType = nil, ammo = 0, name = nil, durability = 0, metadata = {} }
+                      RefreshCurrentWeapons()
+      
+                    else
+                      TriggerServerEvent("tpz_inventory:setWeaponMetadata", UsedWeapon.weaponId, "SET_DURABILITY", UsedWeapon.durability)
+                    end
+        
+                  end
+
+                end
+
+              end
+
+            end
+
+          end
+
+        end
+
+      end
+
+    end
+
+  end
+
+end)
+
 -- We disable the player firing if the left ammo is < 1 because 1 arrow and 1 bullet will always be added to the weapon.
 Citizen.CreateThread(function ()
 
@@ -1164,6 +1249,7 @@ function apply_weapon_component(weapon_component_hash)
     Citizen.InvokeNative(0xD3A7B003ED343FD9, playerPed, joaat(weapon_component_hash), true, true, true) -- ApplyShopItemToPed( -- RELOADING THE LIVE MODEL
   end
 end
+
 
 
 
