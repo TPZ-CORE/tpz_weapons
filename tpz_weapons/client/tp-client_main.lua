@@ -411,6 +411,8 @@ Citizen.CreateThread(function()
 										
 									PlayerData.IsBusy = true
 
+									TPZ.modules().functions.TeleportToCoords(storeConfig.Coords.x, storeConfig.Coords.y, storeConfig.Coords.z, storeConfig.Coords.h)
+
 									TaskStandStill(player, -1)
 
 									ExecuteCommand("hud:hideall")
@@ -709,6 +711,7 @@ Citizen.CreateThread(function()
 	end
 
 end)]]--
+
 
 
 
