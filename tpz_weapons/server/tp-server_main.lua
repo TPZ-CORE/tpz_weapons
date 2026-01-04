@@ -42,7 +42,7 @@ AddEventHandler("tpz_weapons:server:buySelectedItem", function(locationIndex, ca
   if (ItemData.Item ~= item) or (IsWeapon and quantity ~= 1) then
 
     if Config.Webhooks['DEVTOOLS_INJECTION_CHEAT'].Enabled then
-      local _w, _c      = Config.Webhooks['DEVTOOLS_INJECTION_CHEAT'].Url, Config.Webhooks['DEVTOOLS_INJECTION_CHEAT'].Color
+      local _w, _c      = TPZ.GetWebhookUrl('tpz_weapons', 'DEVTOOLS_INJECTION_CHEAT'), Config.Webhooks['DEVTOOLS_INJECTION_CHEAT'].Color
       local description = 'The specified user attempted to use devtools / injection or netbug cheat on weapons store.'
       TPZ.SendToDiscordWithPlayerParameters(_w, Locales['DEVTOOLS_INJECTION_DETECTED_TITLE_LOG'], _source, PlayerData.steamName, PlayerData.username, PlayerData.identifier, PlayerData.charIdentifier, description, _c)
     end
@@ -115,5 +115,6 @@ AddEventHandler("tpz_weapons:server:buySelectedItem", function(locationIndex, ca
   end
 
 end) 
+
 
 
