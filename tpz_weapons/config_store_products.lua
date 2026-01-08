@@ -286,7 +286,7 @@ Config.Types = {
 				{
 					Label       = 'Shotgun Shells Normal',
 					Description = 'The traditional reliable choice. For those encounter the pusillanimous lot out there that would take a mans horse, these are sure to put a finale on their caper, guaranteed.\n\nEach box contains 18 shells.',
-					HashName    = 'mp005_s_hl_cmb_tortshell',
+					HashName    = 's_inv_shotgunammo01x',
 	
 					Cost        = 1,
 
@@ -693,7 +693,7 @@ Config.Types = {
 				{
 					Label       = 'Shotgun Shells Normal',
 					Description = 'The traditional reliable choice. For those encounter the pusillanimous lot out there that would take a mans horse, these are sure to put a finale on their caper, guaranteed.\n\nEach box contains 18 shells.',
-					HashName    = 'mp005_s_hl_cmb_tortshell',
+					HashName    = 's_inv_shotgunammo01x',
 	
 					Cost        = 1,
 
@@ -1100,7 +1100,7 @@ Config.Types = {
 				{
 					Label       = 'Shotgun Shells Normal',
 					Description = 'The traditional reliable choice. For those encounter the pusillanimous lot out there that would take a mans horse, these are sure to put a finale on their caper, guaranteed.\n\nEach box contains 18 shells.',
-					HashName    = 'mp005_s_hl_cmb_tortshell',
+					HashName    = 's_inv_shotgunammo01x',
 	
 					Cost        = 1,
 
@@ -1507,7 +1507,7 @@ Config.Types = {
 				{
 					Label       = 'Shotgun Shells Normal',
 					Description = 'The traditional reliable choice. For those encounter the pusillanimous lot out there that would take a mans horse, these are sure to put a finale on their caper, guaranteed.\n\nEach box contains 18 shells.',
-					HashName    = 'mp005_s_hl_cmb_tortshell',
+					HashName    = 's_inv_shotgunammo01x',
 	
 					Cost        = 1,
 
@@ -1635,4 +1635,5 @@ Config.Types = {
 		},
 		
 	},
+
 }
