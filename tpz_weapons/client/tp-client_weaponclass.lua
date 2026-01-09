@@ -289,7 +289,7 @@ function RefreshCurrentWeapons()
   Citizen.InvokeNative(0x1B83C0DEEBCBB214, playerPedId)
   RemoveAllPedWeapons(playerPedId, true, true)
 
-  if UsedWeapon.weaponId then
+  if UsedWeapon.weaponId and UsedWeapon.hash ~= nil then
     
     -- AddWardrobeInventoryItem("CLOTHING_ITEM_M_OFFHAND_000_TINT_004", 0xF20B6B4A);
     -- AddWardrobeInventoryItem("UPGRADE_OFFHAND_HOLSTER", 0x39E57B01);
@@ -1249,6 +1249,7 @@ function apply_weapon_component(weapon_component_hash)
     Citizen.InvokeNative(0xD3A7B003ED343FD9, playerPed, joaat(weapon_component_hash), true, true, true) -- ApplyShopItemToPed( -- RELOADING THE LIVE MODEL
   end
 end
+
 
 
 
