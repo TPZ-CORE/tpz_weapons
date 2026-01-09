@@ -3,6 +3,9 @@
 --[[ Store Product Types ]]--
 -----------------------------------------------------------
 
+-- The maximum slider quantity to buy items (not weapons).
+Config.MaxSliderBuyValue = 10
+
 -- (!) ALL WEAPONS ARE BOUGHT ONLY AS X1 QUANTITY AUTOMATICALLY BY THE SYSTEM.
 -- Only ammunition have TPZ Inputs available to select the quantity when purchasing.
 
@@ -1637,3 +1640,4 @@ Config.Types = {
 	},
 
 }
+
