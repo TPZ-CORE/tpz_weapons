@@ -523,22 +523,20 @@ Citizen.CreateThread(function()
 											title = ItemData.Label,
 											desc  = Locales['INPUT_BUY_SELECTED_QUANTITY'],
 											buttonparam1 = Locales['INPUT_ACTION_BUY_BUTTON'],
-											buttonparam2 = Locales['INPUT_ACTION_CANCEL_BUTTON']
+											buttonparam2 = Locales['INPUT_ACTION_CANCEL_BUTTON'],
+											min              = 1, -- <- minimum quantity,
+											max              = Config.MaxSliderBuyValue, -- <- maximum quantity,
+											cost             = ItemData.Cost, -- <- item cost x1
+											cost_description = Locales['YOU_WILL_PAY'],
+											cost_currency    = Locales["DOLLARS"],
 										}
 
-										TriggerEvent("tpz_inputs:getTextInput", inputData, function(cb)
+										TriggerEvent("tpz_inputs:getAdvancedSliderResult", inputData, function(cb)
 
-											if cb == 'DECLINE' or cb == Locales['INPUT_ACTION_CANCEL_BUTTON'] then
-												return
+											if cb ~= 'DECLINE' then
+												TriggerServerEvent("tpz_weapons:server:buySelectedItem", index, PlayerData.Store.Category, PlayerData.Store.CurrentIndex, ItemData.Item, ItemData.Label, tonumber(cb) )
 											end
 
-											if tonumber(cb) == nil or tonumber(cb) <= 0 then
-												TriggerServerEvent('tp_libs:sendNotification', nil, Locales['INVALID_QUANTITY'], "error")
-												return 
-											end
-
-											TriggerServerEvent("tpz_weapons:server:buySelectedItem", index, PlayerData.Store.Category, PlayerData.Store.CurrentIndex, ItemData.Item, ItemData.Label, tonumber(cb) )
-			
 										end)
 	
 									else
@@ -711,6 +709,7 @@ Citizen.CreateThread(function()
 	end
 
 end)]]--
+
 
 
 
