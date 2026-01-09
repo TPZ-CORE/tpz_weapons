@@ -9,7 +9,9 @@ Locales = {
     ['STORE_BUY_NOW']    = 'Buy Now',
     ['MENU_BACK_BUTTON'] = 'Back',
     ['MENU_EXIT_BUTTON'] = 'Exit',
-
+    
+    ["YOU_WILL_PAY"]                = "You will pay: ",
+    ["DOLLARS"]                     = " dollars",
     ['INPUT_BUY_SELECTED_QUANTITY'] = 'Specify the quantity you are interested for buying, the default item cost will be multiplied based on the quantity.',
     ['INPUT_ACTION_BUY_BUTTON']     = 'BUY',
     ['INPUT_ACTION_CANCEL_BUTTON']  = 'CANCEL',
@@ -57,5 +59,6 @@ Locales = {
 
     ['DEVTOOLS_INJECTION_DETECTED_TITLE_LOG'] = "DevTools / Injection Cheat Found!",
     ['DEVTOOLS_INJECTION_DETECTED']           = "You have been kicked due to cheating by using DevTools or Injection cheat.",
+
 
 }
