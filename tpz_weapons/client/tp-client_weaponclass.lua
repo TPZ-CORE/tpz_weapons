@@ -45,6 +45,10 @@ function GetWeaponType(hash)
   return false
 end
 
+function IsFirableWeapon(hash)
+  return Citizen.InvokeNative(0x6AD66548840472E5, hash) or Citizen.InvokeNative(0x705BE297EEBDB95D, hash) or Citizen.InvokeNative(0xC4DEC3CA8C365A5D, hash) or Citizen.InvokeNative(0xDDC64F5E31EEDAB6, hash) or Citizen.InvokeNative(0xDDB2578E95EF7138, hash) or Citizen.InvokeNative(0xC212F1D05A8232BB, hash) or Citizen.InvokeNative(0x0A82317B7EBFC420, hash) or Citizen.InvokeNative(0xC75386174ECE95D5, hash)
+end
+
 -----------------------------------------------------------
 --[[ Public Functions  ]]--
 -----------------------------------------------------------
@@ -158,6 +162,7 @@ RegisterNetEvent("tpz_weapons:client:reloadWeaponAmmoByWeaponId")
 AddEventHandler("tpz_weapons:client:reloadWeaponAmmoByWeaponId", function(weaponId, ammo)
 
   if weaponId ~= UsedWeapon.weaponId then
+
     UsedWeapon.reloadingWeapon = false
     return
   end
@@ -217,6 +222,7 @@ function ReloadWeaponsOnCharacterSelect()
         content.metadata.durability, 
         content.metadata
       )
+
 
     end
 
@@ -429,6 +435,11 @@ end
 --[[ Threads  ]]--
 -----------------------------------------------------------
 
+AddEventHandler("tpz_weapons:client:run_weapon_tasks", function()
+
+end)
+
+
 -- (!) All tasks are running properly based on the holding weapon, some tasks are based only for lanterns and torches,
 -- some other tasks only for knifes, others only for throwables and firing weapons, the tasks will run based on the weapon
 -- you are holding for better performance.
@@ -437,124 +448,45 @@ end
 Citizen.CreateThread(function()
 
   while true do
-      Citizen.Wait(0)
 
-      if UsedWeapon.weaponId and UsedWeapon.ammoType == nil and UsedWeapon.ammo == 0 then
+    local sleep         = 1250
+    local isWeaponKnife = Citizen.InvokeNative(0x792E3EF76C911959, weaponHash)
 
-        local size = GetNumberOfEvents(0)
-    
-        if size > 0 then
-    
-          for index = 0, size - 1 do
-            local event = GetEventAtIndex(0, index)
-    
-            if event == joaat("EVENT_ENTITY_DAMAGED") then
-    
-              local eventDataSize = 9  -- for EVENT_ENTITY_DAMAGED data size is 9
-    
-              local eventDataStruct = DataView.ArrayBuffer(8 * eventDataSize) -- buffer must be 8*eventDataSize or bigger
-    
-              eventDataStruct:SetInt32(8 * 1, 0)		 	-- 8*0 offset for 0 element of eventData
-              eventDataStruct:SetInt32(8 * 2, 0)		 	-- 8*0 offset for 0 element of eventData
-    
-              local is_data_exists = Citizen.InvokeNative(0x57EC5FA4D4D6AFCA,0, index,eventDataStruct:Buffer(),eventDataSize)	-- GET_EVENT_DATA
-    
-              if is_data_exists then
-    
-                local attacker       = eventDataStruct:GetInt32(8 * 1)
-                local weaponHash     = eventDataStruct:GetInt32(8 * 2)
-                local isWeaponKnife  = Citizen.InvokeNative(0x792E3EF76C911959, weaponHash)
-    
-                -- Ensure the player who enacted on the event is the one who must get the rewards
-                if PlayerPedId() == attacker and isWeaponKnife then 
-    
-                  local SharedWeapons = TPZInv.getSharedWeapons()
-    
-                  if SharedWeapons.Weapons[UsedWeapon.hash].removeDurabilityValue ~= false then
-            
-                    local WeaponData   = SharedWeapons.Weapons[UsedWeapon.hash]
-    
-                    local randomChance = math.random(1, 100)
-                    local removeValue  = WeaponData.removeDurabilityValue[1]
-          
-                    if WeaponData.removeDurabilityValue[2] then 
-                      local randomValue = math.random(WeaponData.removeDurabilityValue[1], WeaponData.removeDurabilityValue[2])
-                      removeValue = randomValue
-                    end
-          
-                    if removeValue ~= 0 and randomChance <= WeaponData.removeDurabilityChance then
-                      UsedWeapon.durability = UsedWeapon.durability - removeValue
-            
-                      if UsedWeapon.durability <= 0 then
-                        UsedWeapon.durability = 0
-          
-                        TriggerServerEvent("tpz_inventory:setWeaponMetadata", UsedWeapon.weaponId, "SET_DURABILITY", 0)
-        
-                        SaveUsedWeaponData()
-        
-                        UsedWeapon = { weaponId = nil, weaponObject = nil, hash = nil, ammoType = nil, ammo = 0, name = nil, durability = 0, metadata = {} }
-                        RefreshCurrentWeapons()
-        
-                      else
-                        TriggerServerEvent("tpz_inventory:setWeaponMetadata", UsedWeapon.weaponId, "SET_DURABILITY", UsedWeapon.durability)
-                      end
-          
-                    end
-          
-                  end
-    
-                end
-    
-              end
-    
-            end
-    
-          end
-    
-        end
-    
-      else
-        Citizen.Wait(1500)
-      end
-    
+    if not UsedWeapon.weaponId and not UsedWeapon.ammoType == nil and not isWeaponKnife then 
+      goto END
     end
-    
-end)
 
-Citizen.CreateThread(function()
+    if isWeaponKnife then 
 
-  while true do
-    Wait(0)
+      local size = GetNumberOfEvents(0)
+  
+      removeDurability = false
 
-    local size = GetNumberOfEvents(0)
-    if size > 0 then
-      for index = 0, size - 1 do
+      if size > 0 then
 
-        local event = GetEventAtIndex(0, index)
+        sleep = 0
+  
+        for index = 0, size - 1 do
+          local event = GetEventAtIndex(0, index)
+  
+          if event == joaat("EVENT_ENTITY_DAMAGED") then
+  
+            local eventDataSize = 9  -- for EVENT_ENTITY_DAMAGED data size is 9
+            local eventDataStruct = DataView.ArrayBuffer(8 * eventDataSize) -- buffer must be 8*eventDataSize or bigger
+  
+            eventDataStruct:SetInt32(8 * 1, 0)		 	-- 8*0 offset for 0 element of eventData
+            eventDataStruct:SetInt32(8 * 2, 0)		 	-- 8*0 offset for 0 element of eventData
+  
+            local is_data_exists = Citizen.InvokeNative(0x57EC5FA4D4D6AFCA,0, index,eventDataStruct:Buffer(),eventDataSize)	-- GET_EVENT_DATA
+  
+            if is_data_exists then
+  
+              local attacker   = eventDataStruct:GetInt32(8 * 1)
+              local weaponHash = eventDataStruct:GetInt32(8 * 2)
 
-        if event == `EVENT_LOOT_COMPLETE` then
-
-          local eventDataSize = 3  -- for EVENT_LOOT_COMPLETE data size is 9
-          local eventDataStruct = DataView.ArrayBuffer(8 * eventDataSize) -- buffer must be 8*eventDataSize or bigger
-
-          eventDataStruct:SetInt32(8 * 0, 0) 	-- 8*0 offset for 0 element of eventData
-          eventDataStruct:SetInt32(8 * 1, 0)	  -- 8*0 offset for 0 element of eventData
-          eventDataStruct:SetInt32(8 * 2, 0)  -- 8*0 offset for 0 element of eventData
-
-          local is_data_exists = Citizen.InvokeNative(0x57EC5FA4D4D6AFCA,0, index,eventDataStruct:Buffer(),eventDataSize)	-- GET_EVENT_DATA
-
-          if is_data_exists then
-
-            local looterId       = eventDataStruct:GetInt32(8 * 0) 	-- 8*0 offset for 0 element of eventData
-            local lootedEntityId = eventDataStruct:GetInt32(8 * 1)	  -- 8*0 offset for 0 element of eventData
-            local isLootSuccess  = eventDataStruct:GetInt32(8 * 2)  -- 8*0 offset for 0 element of eventData
-
-            if PlayerPedId() == looterId and isLootSuccess == 1 then
-              
-              local model = GetEntityModel(lootedEntityId)
-
-              if model then 
-
+              -- Ensure the player who enacted on the event is the one who must get the rewards
+              if PlayerPedId() == attacker then 
+  
                 local SharedWeapons = TPZInv.getSharedWeapons()
   
                 if SharedWeapons.Weapons[UsedWeapon.hash].removeDurabilityValue ~= false then
@@ -587,6 +519,108 @@ Citizen.CreateThread(function()
                     end
         
                   end
+    
+                  
+                end
+                
+              end
+  
+            end
+  
+          end
+
+        end
+
+      end
+    
+    end
+
+    ::END::
+    Wait(sleep)
+
+  end
+    
+end)
+
+
+Citizen.CreateThread(function()
+
+  while true do
+
+    local sleep = 1000
+    local size  = GetNumberOfEvents(0)
+
+    if size <= 0 then 
+      goto END
+    end
+
+    if size > 0 then
+
+      sleep = 0
+
+      for index = 0, size - 1 do
+
+        local event = GetEventAtIndex(0, index)
+
+        if event == `EVENT_LOOT_COMPLETE` then
+
+          local eventDataSize = 3  -- for EVENT_LOOT_COMPLETE data size is 9
+          local eventDataStruct = DataView.ArrayBuffer(8 * eventDataSize) -- buffer must be 8*eventDataSize or bigger
+
+          eventDataStruct:SetInt32(8 * 0, 0) 	-- 8*0 offset for 0 element of eventData
+          eventDataStruct:SetInt32(8 * 1, 0)	  -- 8*0 offset for 0 element of eventData
+          eventDataStruct:SetInt32(8 * 2, 0)  -- 8*0 offset for 0 element of eventData
+
+          local is_data_exists = Citizen.InvokeNative(0x57EC5FA4D4D6AFCA,0, index,eventDataStruct:Buffer(),eventDataSize)	-- GET_EVENT_DATA
+
+          if is_data_exists then
+
+            local looterId       = eventDataStruct:GetInt32(8 * 0) 	-- 8*0 offset for 0 element of eventData
+            local lootedEntityId = eventDataStruct:GetInt32(8 * 1)	  -- 8*0 offset for 0 element of eventData
+            local isLootSuccess  = eventDataStruct:GetInt32(8 * 2)  -- 8*0 offset for 0 element of eventData
+
+            if PlayerPedId() == looterId and isLootSuccess == 1 then
+              
+              local model = GetEntityModel(lootedEntityId)
+
+              if model then 
+
+                local SharedWeapons = TPZInv.getSharedWeapons()
+  
+                if SharedWeapons.Weapons[UsedWeapon.hash] then
+                  
+                  if SharedWeapons.Weapons[UsedWeapon.hash].removeDurabilityValue ~= false then
+              
+                    local WeaponData   = SharedWeapons.Weapons[UsedWeapon.hash]
+      
+                    local randomChance = math.random(1, 100)
+                    local removeValue  = WeaponData.removeDurabilityValue[1]
+          
+                    if WeaponData.removeDurabilityValue[2] then 
+                      local randomValue = math.random(WeaponData.removeDurabilityValue[1], WeaponData.removeDurabilityValue[2])
+                      removeValue = randomValue
+                    end
+          
+                    if removeValue ~= 0 and randomChance <= WeaponData.removeDurabilityChance then
+                      UsedWeapon.durability = UsedWeapon.durability - removeValue
+            
+                      if UsedWeapon.durability <= 0 then
+                        UsedWeapon.durability = 0
+          
+                        TriggerServerEvent("tpz_inventory:setWeaponMetadata", UsedWeapon.weaponId, "SET_DURABILITY", 0)
+        
+                        SaveUsedWeaponData()
+        
+                        UsedWeapon = { weaponId = nil, weaponObject = nil, hash = nil, ammoType = nil, ammo = 0, name = nil, durability = 0, metadata = {} }
+                        RefreshCurrentWeapons()
+        
+                      else
+                        TriggerServerEvent("tpz_inventory:setWeaponMetadata", UsedWeapon.weaponId, "SET_DURABILITY", UsedWeapon.durability)
+                      end
+          
+                    end
+
+                  end
 
                 end
 
@@ -602,10 +636,14 @@ Citizen.CreateThread(function()
 
     end
 
+    ::END::
+    Wait(sleep)
+
   end
 
 end)
 
+/*
 -- We disable the player firing if the left ammo is < 1 because 1 arrow and 1 bullet will always be added to the weapon.
 Citizen.CreateThread(function ()
 
@@ -629,18 +667,28 @@ Citizen.CreateThread(function ()
   end
 
 end)
+*/
 
 -- Reloading weapons who have ammo support, such as pistols, rifles, shotguns, revolvers, etc.
 Citizen.CreateThread(function ()
 
   while true do
-    Wait(0)
-  
-    local player = PlayerPedId()
-    local PlayerData = TPZInv.getPlayerData()
 
-    if UsedWeapon.weaponId and UsedWeapon.ammoType ~= nil and PlayerData.HasLoadedContents then
-  
+    local sleep      = 1000
+    local player     = PlayerPedId()
+
+    if UsedWeapon.weaponId == nil or UsedWeapon.ammoType == nil then
+      goto END
+    end
+
+    if not IsFirableWeapon(joaat(UsedWeapon.hash)) then 
+      goto END
+    end
+
+    if IsFirableWeapon(joaat(UsedWeapon.hash)) then
+
+      sleep = 0 
+
       if IsControlJustReleased(0, 0xE30CD707) and not UsedWeapon.reloadingWeapon then
   
         local SharedWeapons = TPZInv.getSharedWeapons()
@@ -650,11 +698,11 @@ Citizen.CreateThread(function ()
         if UsedWeapon.hash == "WEAPON_RIFLE_VARMINT" then 
           weaponGroup = tostring(weaponGroup) .. '1'
         end
-
+  
         local getAmmoType = SharedWeapons.AmmoTypes[tostring(weaponGroup)]
-
+  
         if getAmmoType then
-
+  
           local ammoData = SharedWeapons.Ammo[UsedWeapon.ammoType]
           local ammo     = GetAmmoInPedWeapon(PlayerPedId(), joaat(UsedWeapon.hash))
   
@@ -667,10 +715,11 @@ Citizen.CreateThread(function ()
         end
   
       end
-  
-    else
-      Wait(1000)
+
     end
+
+    ::END::
+    Wait(sleep)
   
   end
 
@@ -682,14 +731,23 @@ Citizen.CreateThread(function ()
 
   while true do
   
-    Wait(0)
+    local sleep = 1200
 
-    local PlayerData = TPZInv.getPlayerData()
+    if UsedWeapon.weaponId == nil or UsedWeapon.ammoType == nil or UsedWeapon.ammo == 0 then
+      goto END
+    end
 
-    if UsedWeapon.weaponId and UsedWeapon.ammo ~= 0 and PlayerData.HasLoadedContents then
-  
+    if not IsFirableWeapon(joaat(UsedWeapon.hash)) and not TPZ.StartsWith(UsedWeapon.hash, 'WEAPON_THROWN') and UsedWeapon.hash ~= 'WEAPON_MELEE_HATCHET' and UsedWeapon.hash ~= 'WEAPON_MELEE_CLEAVER' then 
+      goto END
+    end
+
+    if IsFirableWeapon(joaat(UsedWeapon.hash)) or TPZ.StartsWith(UsedWeapon.hash, 'WEAPON_THROWN') or UsedWeapon.hash == 'WEAPON_MELEE_HATCHET' or UsedWeapon.hash == 'WEAPON_MELEE_CLEAVER' then 
+
+      sleep = 0
+
       if IsPedShooting(PlayerPedId()) then
   
+        print('1')
         local ammo = GetAmmoInPedWeapon(PlayerPedId(), joaat(UsedWeapon.hash))
   
         if UsedWeapon.ammoType and ammo > 0 then
@@ -752,9 +810,10 @@ Citizen.CreateThread(function ()
 
       end
   
-    else
-      Wait(1200)
     end
+
+    ::END::
+    Wait(sleep)
   
   end
 end)
@@ -772,9 +831,7 @@ if TPZInv.getSharedWeapons().Options.UsingLanterns then
       
       Wait(1000)
 
-      local PlayerData = TPZInv.getPlayerData()
-
-      if UsedWeapon.weaponId and UsedWeapon.ammoType == nil and UsedWeapon.ammo <= 1 and PlayerData.HasLoadedContents then
+      if UsedWeapon.weaponId and UsedWeapon.ammoType == nil and UsedWeapon.ammo <= 1 then
 
         local retval, weaponHash = GetCurrentPedWeapon(PlayerPedId(), true, 0, true) 
   
@@ -807,7 +864,7 @@ if TPZInv.getSharedWeapons().Options.UsingLanterns then
       
                 if UsedWeapon.durability <= 0 then
                   UsedWeapon.durability = 0
-
+                
                   TriggerServerEvent("tpz_inventory:setWeaponMetadata", UsedWeapon.weaponId, "SET_DURABILITY", 0)
   
                   UsedWeapon = { weaponId = nil, weaponObject = nil, hash = nil, ammoType = nil, ammo = 0, name = nil, durability = 0, metadata = {} }
@@ -843,8 +900,7 @@ Citizen.CreateThread(function ()
   
     Wait(1200)
 
-    local PlayerData = TPZInv.getPlayerData()
-    if UsedWeapon.weaponId and UsedWeapon.ammoType == nil and PlayerData.HasLoadedContents then
+    if UsedWeapon.weaponId and UsedWeapon.ammoType == nil then
 
       local retval, weaponHash = GetCurrentPedWeapon(PlayerPedId(), true, 0, true) 
 
@@ -1249,9 +1305,3 @@ function apply_weapon_component(weapon_component_hash)
     Citizen.InvokeNative(0xD3A7B003ED343FD9, playerPed, joaat(weapon_component_hash), true, true, true) -- ApplyShopItemToPed( -- RELOADING THE LIVE MODEL
   end
 end
-
-
-
-
-
-
