@@ -355,10 +355,6 @@ function RefreshCurrentWeapons()
 
     local weaponObject = GetCurrentPedWeaponEntityIndex(playerPedId, 0)
 
-    if UsedWeapon.ammo == 0 then
-      UsedWeapon.ammo = 1
-    end
-
     if UsedWeapon.ammoType then
       Citizen.InvokeNative(0x106A811C6D3035F3, playerPedId, joaat(UsedWeapon.ammoType), UsedWeapon.ammo, 0xCA3454E6)
     else
@@ -1305,3 +1301,4 @@ function apply_weapon_component(weapon_component_hash)
     Citizen.InvokeNative(0xD3A7B003ED343FD9, playerPed, joaat(weapon_component_hash), true, true, true) -- ApplyShopItemToPed( -- RELOADING THE LIVE MODEL
   end
 end
+
