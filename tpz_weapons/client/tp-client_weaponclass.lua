@@ -358,7 +358,7 @@ function RefreshCurrentWeapons()
     if UsedWeapon.ammoType then
       Citizen.InvokeNative(0x106A811C6D3035F3, playerPedId, joaat(UsedWeapon.ammoType), UsedWeapon.ammo, 0xCA3454E6)
     else
-      SetPedAmmo(playerPedId, joaat(UsedWeapon.hash), UsedWeapon.ammo)
+      SetPedAmmo(playerPedId, WeaponHash, UsedWeapon.ammo)
     end
 
     if UsedWeapon.metadata.dirtLevel then
