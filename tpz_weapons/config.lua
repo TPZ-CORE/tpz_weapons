@@ -82,13 +82,14 @@ Config.Stores = {
 		MenuTitle = 'Gunsmith',
 
 		-- Store location coords.
-		Coords = { x = -281.879, y = 780.7117, z = 119.52, h = 181.48803710938 }, 
+		-- Make sure the coords are in a good spot so the player will be teleported for avoiding camera blocks.
+		Coords = { x = -281.540, y = 781.1574, z = 118.52, h = 194.6105 }, 
 
 		-- The weapon or item objects position for displaying properly when purchasing.
 		ItemObjectPosition = {x = -281.42352294921875, y = 779.7827758789062, z = 119.633041748047, pitch = 0, roll = 0, yaw = 0},
 
 		BlipData = { -- We are have it disabled because we are displaying the Blip directly from tpz_society.
-		    Enabled = true,
+		    Enabled = false,
 			Coords  = { x = -281.767822265625, y = 778.7244873046875, z = 118.50273895263672 },
 			Title   = 'Weapons & Ammunition Store',
 		    Sprite  = 202506373,
@@ -104,8 +105,8 @@ Config.Stores = {
 
 		-- Set @Enabled to false if you dont want a job to receive money from the specified store on the society ledger.
 		SocietyMoney = {
-			Enabled  = false,
-			Job      = "",
+			Enabled  = true,
+			Job      = "valgunsmith",
 		},
 
 		-- Camera location for displaying the @ItemObjectPosition
@@ -131,13 +132,13 @@ Config.Stores = {
 		MenuTitle = 'Gunsmith',
 
 		-- Store location coords.
-		Coords = { x = 1322.834, y = -1321.47, z = 77.889, h = 176.0556335}, 
+		Coords = { x = 1322.617, y = -1321.14, z = 76.888, h = 182.430587768}, 
 
 		-- The weapon or item objects position for displaying properly when purchasing.
 		ItemObjectPosition = {x = 1322.2265625, y = -1322.1790771484375, z = 77.94772888183594, pitch = 0, roll = 0, yaw = 0},
 
 		BlipData = { -- We are have it disabled because we are displaying the Blip directly from tpz_society.
-		    Enabled = true,
+		    Enabled = false,
 			Coords  = { x = 1322.122, y = -1323.03, z = 77.887 },
 			Title   = 'Weapons & Ammunition Store',
 		    Sprite  = 202506373,
@@ -154,10 +155,10 @@ Config.Stores = {
 
 		-- Set @Enabled to false if you dont want a job to receive money from the specified store on the society ledger.
 		SocietyMoney = {
-			Enabled  = false,
-			Job      = "",
+			Enabled  = true,
+			Job      = "rhgunsmith",
 		},
-		
+
 		-- Camera location for displaying the @ItemObjectPosition
 		MainCamera = { x = 1322.83, y = -1321.663, z = 78.820, rotx = -55.0, roty = 0.0, rotz = 130.0, fov = 26.0},
 
@@ -176,18 +177,18 @@ Config.Stores = {
 		StoreProductsType = 'RHODES',
 	},
 
-	['SAINTDENIS'] = {
+	['SAINT_DENIS'] = {
 
 		MenuTitle = 'Gunsmith',
 
 		-- Store location coords.
-		Coords = { x = 2715.731, y = -1285.29, z = 49.630, h = 207.649}, 
+		Coords = { x = 2715.731, y = -1285.29, z = 48.630, h = 207.649}, 
 
 		-- The weapon or item objects position for displaying properly when purchasing.
 		ItemObjectPosition = {x = 2716.442626953125, y = -1286.3338623046875, z = 49.7001528930664, pitch = 0, roll = 0, yaw = 0},
 
 		BlipData = { -- We are have it disabled because we are displaying the Blip directly from tpz_society.
-		    Enabled = true,
+		    Enabled = false,
 			Coords  = {x = 2715.731, y = -1285.29, z = 49.630 },
 			Title   = 'Weapons & Ammunition Store',
 		    Sprite  = 202506373,
@@ -204,10 +205,10 @@ Config.Stores = {
 
 		-- Set @Enabled to false if you dont want a job to receive money from the specified store on the society ledger.
 		SocietyMoney = {
-			Enabled  = false,
-			Job      = "",
+			Enabled  = true,
+			Job      = "sdgunsmith",
 		},
-		
+
 		-- Camera location for displaying the @ItemObjectPosition
 		MainCamera = { x = 2716.498, y = -1285.30, z = 50.830, rotx = -55.0, roty = 5.0, rotz = 180.0, fov = 26.0},
 
@@ -216,14 +217,14 @@ Config.Stores = {
 
 		-- Set to false if you don't want when purchasing a weapon to add a serial number with the bought store location. 
 		WeaponSerialNumbers = true, 
-		WeaponSerialNumberFirstText = 'rh',
+		WeaponSerialNumberFirstText = 'sd',
 
-		ActionDistance = 1.0,
+		ActionDistance = 1.2,
 
 		-- @StoreProductsType displaying all the available weapons and items that can be sold through config_store_products.lua
 		-- DEFAULT is the example that has been made in the mentioned file.
 		-- You can create your own types for having different weapons, items or even prices.
-		StoreProductsType = 'RHODES',
+		StoreProductsType = 'SAINT_DENIS',
 	},
 
 	['ANNESBURG'] = {
@@ -231,13 +232,13 @@ Config.Stores = {
 		MenuTitle = 'Gunsmith',
 
 		-- Store location coords.
-		Coords = { x = 2946.567, y = 1319.991, z = 44.820, h = 257.772430419 }, 
+		Coords = { x = 2946.267, y = 1319.823, z = 43.820, h = 271.776824 }, 
 
 		-- The weapon or item objects position for displaying properly when purchasing.
 		ItemObjectPosition = {x = 2947.330322265625, y = 1319.6854248046875, z = 44.98997985839844, pitch = 0, roll = 0, yaw = 0},
 
 		BlipData = { -- We are have it disabled because we are displaying the Blip directly from tpz_society.
-		    Enabled = true,
+		    Enabled = false,
 			Coords  = { x = 2948.311279296875, y = 1319.1077880859375, z = 43.82009506225586 },
 			Title   = 'Weapons & Ammunition Store',
 		    Sprite  = 202506373,
@@ -254,10 +255,10 @@ Config.Stores = {
 
 		-- Set @Enabled to false if you dont want a job to receive money from the specified store on the society ledger.
 		SocietyMoney = {
-			Enabled  = false,
-			Job      = "",
+			Enabled  = true,
+			Job      = "anesgunsmith",
 		},
-		
+
 		-- Camera location for displaying the @ItemObjectPosition
 		MainCamera = { x = 2946.813, y = 1320.663, z = 45.820, rotx = -45.0, roty = 0.0, rotz = 220.0, fov = 46.0},
 
@@ -275,6 +276,106 @@ Config.Stores = {
 		-- You can create your own types for having different weapons, items or even prices.
 		StoreProductsType = 'ANNESBURG',
 	},
+
+	['BLACKWATER'] = {
+
+		MenuTitle = 'Gunsmith',
+
+		-- Store location coords.
+		Coords = { x = -787.228, y = -1297.13, z = 42.748, h = 191.03794860 }, 
+
+		-- The weapon or item objects position for displaying properly when purchasing.
+		ItemObjectPosition = {x = -787.1995849609375, y = -1298.34375, z = 43.8223762512207, pitch = 0, roll = 0, yaw = 0},
+
+		BlipData = { -- We are have it disabled because we are displaying the Blip directly from tpz_society.
+		    Enabled = false,
+			Coords  = { x = -786.925, y = -1296.76, z = 43.750 },
+			Title   = 'Weapons & Ammunition Store',
+		    Sprite  = 202506373,
+
+	    },
+
+		-- By enabling the NPC, there will be some extra animations based on it while being on the store.
+		NPCData = {
+            Enabled = true,
+            Model = "u_m_m_asbgunsmith_01",
+            Coords = {x = -786.8406982421875, y = -1299.5042724609375, z = 42.751, h = 2.36312246},
+			Scenario = { Enabled = true, HashName = "WORLD_HUMAN_SHOPKEEPER_MALE_B" },
+		},
+
+		-- Set @Enabled to false if you dont want a job to receive money from the specified store on the society ledger.
+		SocietyMoney = {
+			Enabled  = true,
+			Job      = "bwblacksmith",
+		},
+
+		-- Camera location for displaying the @ItemObjectPosition
+		MainCamera = { x = -786.266, y = -1297.30, z = 45.756, rotx = -55.0, roty = 0.0, rotz = 151.7775, fov = 10},
+
+		-- Set to false if you want the gunsmith store to always be active in any game hours.
+		Hours = { Enabled = true, Duration = {am = 7, pm = 21} },
+
+		-- Set to false if you don't want when purchasing a weapon to add a serial number with the bought store location. 
+		WeaponSerialNumbers = true, 
+		WeaponSerialNumberFirstText = 'anes',
+
+		ActionDistance = 1.2,
+
+		-- @StoreProductsType displaying all the available weapons and items that can be sold through config_store_products.lua
+		-- DEFAULT is the example that has been made in the mentioned file.
+		-- You can create your own types for having different weapons, items or even prices.
+		StoreProductsType = 'BLACKWATER',
+	},
+
+	['STRAWBERRY'] = {
+
+		MenuTitle = 'Gunsmith',
+
+		-- Store location coords.
+		Coords = { x = -1840.91, y = -420.752, z = 160.31, h = 165.5796203 }, 
+
+		-- The weapon or item objects position for displaying properly when purchasing.
+		ItemObjectPosition = {x = -1841.615966796875, y = -421.8307189941406, z = 161.3403485107422, pitch = 0, roll = 0, yaw = 0},
+
+		BlipData = { -- We are have it disabled because we are displaying the Blip directly from tpz_society.
+		    Enabled = false,
+			Coords  = { x = -1842.10, y = -417.529, z = 161.31 },
+			Title   = 'Weapons & Ammunition Store',
+		    Sprite  = 202506373,
+
+	    },
+
+		-- By enabling the NPC, there will be some extra animations based on it while being on the store.
+		NPCData = {
+            Enabled = true,
+            Model = "u_m_m_asbgunsmith_01",
+            Coords = {x = -1842.0736083984375, y = -422.7800598144531, z = 160.31, h = -16.84560585021972 },
+			Scenario = { Enabled = false, HashName = "WORLD_HUMAN_SHOPKEEPER_MALE_B" },
+		},
+
+		-- Set @Enabled to false if you dont want a job to receive money from the specified store on the society ledger.
+		SocietyMoney = {
+			Enabled  = true,
+			Job      = "strgunsmith",
+		},
+
+		-- Camera location for displaying the @ItemObjectPosition
+		MainCamera = { x = -1840.62, y = -420.852, z = 162.31, rotx = -35.0, roty = 0.0, rotz = 135.60, fov = 10},
+
+		-- Set to false if you want the gunsmith store to always be active in any game hours.
+		Hours = { Enabled = true, Duration = {am = 7, pm = 21} },
+
+		-- Set to false if you don't want when purchasing a weapon to add a serial number with the bought store location. 
+		WeaponSerialNumbers = true, 
+		WeaponSerialNumberFirstText = 'anes',
+
+		ActionDistance = 1.2,
+
+		-- @StoreProductsType displaying all the available weapons and items that can be sold through config_store_products.lua
+		-- DEFAULT is the example that has been made in the mentioned file.
+		-- You can create your own types for having different weapons, items or even prices.
+		StoreProductsType = 'STRAWBERRY',
+	},
 }
 
 ---------------------------------------------------------------
@@ -285,7 +386,7 @@ Config.Stores = {
 Config.Webhooks = {
     
     ['DEVTOOLS_INJECTION_CHEAT'] = { -- Warnings and Logs about players who used or atleast tried to use devtools injection.
-        Enabled = false, 
+        Enabled = true, 
         Color = 10038562,
     },
 
@@ -306,6 +407,4 @@ function SendNotification(source, message, type)
         TriggerClientEvent('tpz_core:sendBottomTipNotification', source, message, duration)
     end
 
-
 end
-
