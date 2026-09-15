@@ -105,7 +105,7 @@ Config.Stores = {
 
 		-- Set @Enabled to false if you dont want a job to receive money from the specified store on the society ledger.
 		SocietyMoney = {
-			Enabled  = true,
+			Enabled  = false,
 			Job      = "valgunsmith",
 		},
 
@@ -155,7 +155,7 @@ Config.Stores = {
 
 		-- Set @Enabled to false if you dont want a job to receive money from the specified store on the society ledger.
 		SocietyMoney = {
-			Enabled  = true,
+			Enabled  = false,
 			Job      = "rhgunsmith",
 		},
 
@@ -205,7 +205,7 @@ Config.Stores = {
 
 		-- Set @Enabled to false if you dont want a job to receive money from the specified store on the society ledger.
 		SocietyMoney = {
-			Enabled  = true,
+			Enabled  = false,
 			Job      = "sdgunsmith",
 		},
 
@@ -255,7 +255,7 @@ Config.Stores = {
 
 		-- Set @Enabled to false if you dont want a job to receive money from the specified store on the society ledger.
 		SocietyMoney = {
-			Enabled  = true,
+			Enabled  = false,
 			Job      = "anesgunsmith",
 		},
 
@@ -305,7 +305,7 @@ Config.Stores = {
 
 		-- Set @Enabled to false if you dont want a job to receive money from the specified store on the society ledger.
 		SocietyMoney = {
-			Enabled  = true,
+			Enabled  = false,
 			Job      = "bwblacksmith",
 		},
 
@@ -355,7 +355,7 @@ Config.Stores = {
 
 		-- Set @Enabled to false if you dont want a job to receive money from the specified store on the society ledger.
 		SocietyMoney = {
-			Enabled  = true,
+			Enabled  = false,
 			Job      = "strgunsmith",
 		},
 
