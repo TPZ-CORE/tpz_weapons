@@ -379,6 +379,87 @@ Config.Stores = {
 }
 
 ---------------------------------------------------------------
+--[[ Weapon Damage Modifiers & EXTRA ( version 1.1.0 ) ]]--
+---------------------------------------------------------------
+
+-- Disable sprinting while aiming with a weapon / gun.
+Config.DisableSprintWhileAiming = true
+
+-- Set to true if you want to enable any weapon damage modifiers, if you want the in-game weapon damage modifiers, set to false just keep in mind
+-- Config.WeaponDamage (damage modifiers will NOT be functional if you have it as false - it is going to use default damage from in-game)
+Config.WeaponDamageModifiers = true 
+
+Config.WeaponDamages = {
+    -- Melee
+	{Name = 'WEAPON_UNARMED', Damage = 0.3},
+	{Name = 'WEAPON_MELEE_CLEAVER', Damage = 2.5},
+	{Name = 'WEAPON_MELEE_HAMMER', Damage = 2.0},
+	{Name = 'WEAPON_MELEE_HATCHET', Damage = 3.5},
+	{Name = 'WEAPON_MELEE_HATCHET_HUNTER', Damage = 3.8},
+	
+	{Name = 'WEAPON_MELEE_KNIFE', Damage = 4.5},
+	{Name = 'WEAPON_MELEE_KNIFE_HORROR', Damage = 4.5},
+	{Name = 'WEAPON_MELEE_KNIFE_JAWBONE', Damage = 3.0},
+	{Name = 'WEAPON_MELEE_KNIFE_RUSTIC', Damage = 4.5},
+	{Name = 'WEAPON_MELEE_KNIFE_TRADER', Damage = 4.5},
+	
+	{Name = 'WEAPON_MELEE_MACHETE', Damage = 5.5},
+	{Name = 'WEAPON_MELEE_MACHETE_COLLECTOR', Damage = 5.5},
+	{Name = 'WEAPON_MELEE_MACHETE_HORROR', Damage = 5.5},
+	
+	-- Revolver
+	{Name = 'WEAPON_REVOLVER_CATTLEMAN', Damage = 2.5},
+	{Name = 'WEAPON_REVOLVER_CATTLEMAN_MEXICAN', Damage = 2.6},
+	{Name = 'WEAPON_REVOLVER_DOUBLEACTION', Damage = 2.2},
+	{Name = 'WEAPON_REVOLVER_DOUBLEACTION_GAMBLER', Damage = 2.3},
+	{Name = 'WEAPON_REVOLVER_LEMAT', Damage = 3.5},
+	{Name = 'WEAPON_REVOLVER_NAVY', Damage = 3.0},
+	{Name = 'WEAPON_REVOLVER_NAVY_CROSSOVER', Damage = 3.1},
+	{Name = 'WEAPON_REVOLVER_SCHOFIELD', Damage = 2.8},
+	
+	-- Pistols
+	{Name = 'WEAPON_PISTOL_M1899', Damage = 2.2},
+	{Name = 'WEAPON_PISTOL_MAUSER', Damage = 2.0},
+	{Name = 'WEAPON_PISTOL_SEMIAUTO', Damage = 1.9},
+	{Name = 'WEAPON_PISTOL_VOLCANIC', Damage = 3.2},
+	
+	-- Snipers
+	{Name = 'WEAPON_SNIPERRIFLE_CARCANO', Damage = 7.5},
+	{Name = 'WEAPON_SNIPERRIFLE_ROLLINGBLOCK', Damage = 8.5},
+	
+	-- Rifle
+	{Name = 'WEAPON_RIFLE_BOLTACTION', Damage = 6.5},
+	{Name = 'WEAPON_RIFLE_ELEPHANT', Damage = 10.0},
+	{Name = 'WEAPON_RIFLE_SPRINGFIELD', Damage = 7.0},
+	{Name = 'WEAPON_RIFLE_VARMINT', Damage = 2.0},
+	
+	-- Repeater
+	{Name = 'WEAPON_REPEATER_CARBINE', Damage = 4.0},
+	{Name = 'WEAPON_REPEATER_EVANS', Damage = 3.8},
+	{Name = 'WEAPON_REPEATER_HENRY', Damage = 4.5},
+	{Name = 'WEAPON_REPEATER_WINCHESTER', Damage = 4.2},
+	
+	-- Thrown
+	{Name = 'WEAPON_THROWN_DYNAMITE', Damage = 12.0},
+	{Name = 'WEAPON_THROWN_POISONBOTTLE', Damage = 2.0},
+	{Name = 'WEAPON_THROWN_THROWING_KNIVES', Damage = 4.5},
+	{Name = 'WEAPON_THROWN_TOMAHAWK', Damage = 6.0},
+	{Name = 'WEAPON_THROWN_TOMAHAWK_ANCIENT', Damage = 6.5},
+	
+	-- Shotgun
+	{Name = 'WEAPON_SHOTGUN_DOUBLEBARREL', Damage = 8.0},
+	{Name = 'WEAPON_SHOTGUN_PUMP', Damage = 7.5},
+	{Name = 'WEAPON_SHOTGUN_REPEATING', Damage = 7.0},
+	{Name = 'WEAPON_SHOTGUN_SAWEDOFF', Damage = 8.5},
+	{Name = 'WEAPON_SHOTGUN_SEMIAUTO', Damage = 6.5},
+	
+	-- Bows
+	{Name = 'WEAPON_BOW', Damage = 5.0},
+	{Name = 'WEAPON_BOW_IMPROVED', Damage = 5.8},
+	
+}
+
+---------------------------------------------------------------
 --[[ Webhooks ]]--
 ---------------------------------------------------------------
 
