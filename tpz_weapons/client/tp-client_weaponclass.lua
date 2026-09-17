@@ -1302,3 +1302,71 @@ function apply_weapon_component(weapon_component_hash)
   end
 end
 
+if Config.DisableSprintWhileAiming then
+
+  Citizen.CreateThread(function() -- 1.1.0
+
+    while true do
+      
+      local sleep = 1000
+
+      if IsPlayerFreeAiming(PlayerId()) then
+        sleep = 0
+        DisableControlAction(0, 0x8FFC75D6, true) 
+      end
+
+      Wait(sleep)
+
+    end
+
+  end)
+
+end
+
+-- Damage Modifiers
+if Config.WeaponDamageModifiers then -- 1.0.0
+
+  Citizen.CreateThread(function()
+
+    local RegisteredWeaponModifiers = {}
+    local LastWeapon = nil
+
+    for _, v in ipairs(Config.WeaponDamages) do
+      local hash = joaat(v.Name)
+      RegisteredWeaponModifiers[hash] = { Damage = v.Damage, Name = v.Name }
+    end
+    
+    while true do
+      
+      Wait(1000) 
+
+      local ped = PlayerPedId()
+      local _, currentWeapon = GetCurrentPedWeapon(ped)
+
+      if currentWeapon ~= LastWeapon then
+        
+        local weaponData      = RegisteredWeaponModifiers[currentWeapon] 
+        local currentModifier = 1.0
+        local weaponLabel     = "Unknown Weapon"
+
+        if weaponData then
+          currentModifier = weaponData.Damage
+          weaponLabel = weaponData.Name
+        end
+
+        Citizen.InvokeNative(0xD04AD186CE8BB129, PlayerId(), currentWeapon, currentModifier) 
+
+        if Config.Debug and weaponData then
+          local message = string.format("Weapon: %s | Damage Modifier: %.2fx", weaponLabel, currentModifier)
+          print(message)
+        end
+
+        LastWeapon = currentWeapon
+        
+      end
+      
+    end
+
+  end)
+
+end
