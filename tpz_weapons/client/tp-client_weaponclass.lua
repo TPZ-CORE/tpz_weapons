@@ -834,7 +834,7 @@ if TPZInv.getSharedWeapons().Options.UsingLanterns then
         local isLantern = Citizen.InvokeNative(0x79407D33328286C6, weaponHash)
         local isTorch   = Citizen.InvokeNative(0x506F1DE1BFC75304, weaponHash)
   
-        if (isLantern or isTorch ) and joaat(UsedWeapon.hash) == weaponHash then
+        if ( (isLantern or isTorch ) and joaat(UsedWeapon.hash) == weaponHash ) or (weaponHash == -1569615261 ) then
   
           if TPZInv.getSharedWeapons().Weapons[UsedWeapon.hash].removeDurabilityValue ~= false then
   
@@ -886,32 +886,35 @@ if TPZInv.getSharedWeapons().Options.UsingLanterns then
 end
 
 
--- The specified task is removing the used weapon if this type never goes to the loadout.
--- For example, lanterns when pressing tab or (4), they cannot be used again through loadout, so we remove them from used state.
-local getCarriedWeapon = false
+CreateThread(function()
 
-Citizen.CreateThread(function ()
+  local IsWeaponLantern = IsWeaponLantern
+  local lastLantern = 0
 
   while true do
-  
-    Wait(1200)
 
-    if UsedWeapon.weaponId and UsedWeapon.ammoType == nil then
+    local retval, weaponHash = GetCurrentPedWeapon(PlayerPedId(), true, 0, true) 
+
+    if UsedWeapon.weaponId and UsedWeapon.ammoType == nil and UsedWeapon.ammo <= 1 then
 
       local retval, weaponHash = GetCurrentPedWeapon(PlayerPedId(), true, 0, true) 
+      local isLantern = Citizen.InvokeNative(0x79407D33328286C6, weaponHash)
 
-      if StoredWeaponsList[UsedWeapon.hash] and weaponHash == -1569615261 then
-  
-        UsedWeapon = { weaponId = nil, weaponObject = nil, hash = nil, ammoType = nil, ammo = 0, name = nil, durability = 0, metadata = {} }
-    
-        RefreshCurrentWeapons()
-        getCarriedWeapon = false
-  
+      if isLantern then -- and joaat(UsedWeapon.hash) == weaponHash then
+        lastLantern = joaat(UsedWeapon.hash)
       end
-  
+
+      if lastLantern ~= 0 and not isLantern then
+        SetCurrentPedWeapon(PlayerPedId(), lastLantern, true, 12, false, false)
+        lastLantern = 0
+      end
+      
     end
 
+    Wait(500)
+
   end
+  
 
 end)
 
