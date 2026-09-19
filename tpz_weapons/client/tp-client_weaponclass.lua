@@ -815,6 +815,7 @@ Citizen.CreateThread(function ()
 end)
 
 
+
 -- Removing lanterns or torches durability
 if TPZInv.getSharedWeapons().Options.UsingLanterns then
 
@@ -835,11 +836,11 @@ if TPZInv.getSharedWeapons().Options.UsingLanterns then
         local isTorch   = Citizen.InvokeNative(0x506F1DE1BFC75304, weaponHash)
   
         if ( (isLantern or isTorch ) and joaat(UsedWeapon.hash) == weaponHash ) or (weaponHash == -1569615261 ) then
-  
-          if TPZInv.getSharedWeapons().Weapons[UsedWeapon.hash].removeDurabilityValue ~= false then
-  
-            local WeaponData = TPZInv.getSharedWeapons().Weapons[UsedWeapon.hash]
-  
+          
+          local WeaponData = TPZInv.getSharedWeapons().Weapons[UsedWeapon.hash]
+
+          if TPZInv.getSharedWeapons().Weapons[UsedWeapon.hash].removeDurabilityValue ~= false and WeaponData.removeDurabilityDelay then
+
             CurrentLightDelay = CurrentLightDelay + 1
   
             -- We check for durability delay on lanterns because lanterns are used while holding.
@@ -884,6 +885,7 @@ if TPZInv.getSharedWeapons().Options.UsingLanterns then
   end)
 
 end
+
 
 
 CreateThread(function()
