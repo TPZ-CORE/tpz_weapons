@@ -35,11 +35,10 @@ Citizen.CreateThread(function ()
 
 				TPZInv.closeInventory(_source)
 
-				Wait(3000)
-
 				TPZInv.removeItem(_source, item, 1)
-				TPZInv.addItem(_source, v.Item, v.AmmoQuantity)
 
+				Wait(3000)
+				TPZInv.addItem(_source, v.Item, v.AmmoQuantity)
 				SendNotification(_source,  v.Notify, 'success')
 				CooldownPlayers[_source] = nil
 			end)
