@@ -78,9 +78,7 @@ function checkgun()
             end
 
             if IsDisabledControlJustReleased(0,3820983707) and not cleaning then
-
-                --TriggerEvent("vorp:ExecuteServerCallBack", "tp_syn_weapons:hasRequiredItem", function(hasRequiredItem)
-
+				
                     if not hasRequiredItem then
                         ClearPedTasks(PlayerPedId(),1,1)
                         Citizen.InvokeNative(0x4EB122210A90E2D8, -813354801)	
@@ -89,8 +87,6 @@ function checkgun()
                         --TriggerEvent("vorp:TipBottom", "~e~You don't have a weapons cloth to clean the weapon.", 4000)
 
                     end
-
-                --end, {item = "cleanshort"})
 				
                 break
             end
