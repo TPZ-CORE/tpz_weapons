@@ -9,16 +9,20 @@ exports('getWeaponsAPI', function()
         return GetUsedWeaponData()
     end
 
-    self.clearUsedWeaponData = function(refresh)
-        ClearUsedWeaponData(refresh)
+    self.getUsedWeaponsData = function()
+        return GetUsedWeaponsData()
+    end
+
+    self.clearUsedWeaponData = function(weaponId, refresh) -- 1.1.2
+        ClearUsedWeaponData(weaponId, refresh)
     end
 
     self.setUsedWeaponAmmoType = function(ammoType)
         GetUsedWeaponData().ammoType = ammoType
     end
 
-    self.saveUsedWeaponData = function()
-        SaveUsedWeaponData()
+    self.saveUsedWeaponData = function(weaponId) -- 1.1.2
+        SaveUsedWeaponData(weaponId)
     end
     
     self.equipWeapon = function(itemId, hash, ammoType, ammo, label, durability, metadata)
