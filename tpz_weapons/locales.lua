@@ -59,6 +59,9 @@ Locales = {
 
     ['DEVTOOLS_INJECTION_DETECTED_TITLE_LOG'] = "DevTools / Injection Cheat Found!",
     ['DEVTOOLS_INJECTION_DETECTED']           = "You have been kicked due to cheating by using DevTools or Injection cheat.",
-
+    
+    ['CANNOT_EQUIP_SAME_WEAPON_TYPE']         = '~e~Cannot equip the same weapon model.', -- 1.1.2
+    ['CANNOT_EQUIP_MORE_LONGARMS']            = '~e~Cannot equip more than (2) longarms.', -- 1.1.2
+    ['CANNOT_EQUIP_MORE_SHORTARMS']           = '~e~Cannot equip more than (2) shortarms.', -- 1.1.2
 
 }
