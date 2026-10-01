@@ -182,6 +182,16 @@ AddEventHandler("tpz_weapons:client:reloadWeaponAmmoByWeaponId", function(weapon
   EquippedWeapons[weaponId].reloadingWeapon = false
 end)
 
+RegisterNetEvent("tpz_weapons:client:removeEquippedWeaponById")
+AddEventHandler("tpz_weapons:client:removeEquippedWeaponById", function(weaponId)
+
+  if EquippedWeapons[weaponId] == nil then 
+    return 
+  end
+
+  EquippedWeapons[weaponId] = nil
+end)
+
 -----------------------------------------------------------
 --[[ Weapon Functions  ]]--
 -----------------------------------------------------------
