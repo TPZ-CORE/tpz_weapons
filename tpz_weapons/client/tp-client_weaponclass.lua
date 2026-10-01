@@ -192,6 +192,12 @@ AddEventHandler("tpz_weapons:client:removeEquippedWeaponById", function(weaponId
   EquippedWeapons[weaponId] = nil
 end)
 
+
+RegisterNetEvent("tpz_weapons:client:clearEquippedWeaponsList")
+AddEventHandler("tpz_weapons:client:clearEquippedWeaponsList", function()
+  EquippedWeapons = {}
+end)
+
 -----------------------------------------------------------
 --[[ Weapon Functions  ]]--
 -----------------------------------------------------------
