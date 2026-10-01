@@ -206,8 +206,8 @@ AddEventHandler("tpz_core:isPlayerRespawned", function()
 end)
 
 -- sent by tpz_core when a death takes the inventory contents away
-RegisterNetEvent("tpz_inventory:clearEquippedWeapons")
-AddEventHandler("tpz_inventory:clearEquippedWeapons", function()
+RegisterNetEvent("tpz_weapons:clearEquippedWeapons")
+AddEventHandler("tpz_weapons:clearEquippedWeapons", function()
   ForgetAllWeapons(true)
 end)
 
